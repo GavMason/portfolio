@@ -1,11 +1,12 @@
-import { useInView } from '../../hooks/useInView'
+import { useRef } from 'react'
+import { useInView } from 'framer-motion'
 
 export function SectionDivider() {
-  const [ref, visible] = useInView(0.5)
+  const ref = useRef(null)
+  const visible = useInView(ref, { once: true, amount: 0.5 })
 
   return (
     <div ref={ref} className="max-w-250 mx-auto px-10">
-      {/* Gradient line - scales in on scroll */}
       <div
         className="h-px overflow-hidden"
         style={{

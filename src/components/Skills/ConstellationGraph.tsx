@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { useInView } from 'framer-motion'
 import { SKILLS_DATA, CAT_COLORS, CAT_LABELS, CONNECTIONS } from '../../data/skills'
 import { SkillTooltip } from './SkillTooltip'
-import { useInView } from '../../hooks/useInView'
 
 export function ConstellationGraph() {
   const [hovered, setHovered] = useState<number | null>(null)
-  const [ref, visible] = useInView(0.1)
+  const ref = useRef(null)
+  const visible = useInView(ref, { once: true, amount: 0.1 })
   const [activeCat, setActiveCat] = useState<number | null>(null)
 
   // Resolve which category to highlight - hover takes priority

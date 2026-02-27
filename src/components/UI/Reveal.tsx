@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
-import { useInView } from '../../hooks/useInView'
-import { useParallax } from '../../hooks/useParallax'
+import { motion } from 'framer-motion'
 
 interface RevealProps {
   children: ReactNode
@@ -9,23 +8,17 @@ interface RevealProps {
 }
 
 export function Reveal({ children, delay = 0, y = 30 }: RevealProps) {
-  const [ref, visible] = useInView()
-  const [pRef, offset] = useParallax(0.03)
-
   return (
-    <div
-      // Callback ref merges both hook refs onto a single DOM element
-      ref={(el) => {
-        ref.current = el
-        pRef.current = el
-      }}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? `translateY(${offset}px)` : `translateY(${y}px)`,
-        transition: `opacity 0.7s cubic-bezier(.4,0,.2,1) ${delay}ms, transform 0.9s cubic-bezier(.4,0,.2,1) ${delay}ms`,
+    <motion.div
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{
+        opacity: { duration: 0.7, ease: [0.4, 0, 0.2, 1], delay: delay / 1000 },
+        y: { duration: 0.9, ease: [0.4, 0, 0.2, 1], delay: delay / 1000 },
       }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }

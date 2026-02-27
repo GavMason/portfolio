@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
-import { useInView } from '../../hooks/useInView'
+import { useInView } from 'framer-motion'
 import { TERMINAL_LINES } from '../../data/terminal'
 import type { TerminalLine } from '../../data/terminal'
 
 export function Terminal() {
   const [lines, setLines] = useState<TerminalLine[]>([])
-  const [ref, visible] = useInView(0.3)
+  const ref = useRef(null)
+  const visible = useInView(ref, { once: true, amount: 0.3 })
   const started = useRef(false)
   const [cycle, setCycle] = useState(0)
 

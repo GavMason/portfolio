@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useScroll, useMotionValueEvent } from 'framer-motion'
 
 export function BackToTop() {
   const [show, setShow] = useState(false)
   const [hovered, setHovered] = useState(false)
+  const { scrollY } = useScroll()
 
-  // Show button after scrolling
-  useEffect(() => {
-    const handler = () => setShow(window.scrollY > 600)
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
+  useMotionValueEvent(scrollY, 'change', (y) => setShow(y > 600))
 
   return (
     <button
@@ -27,7 +24,6 @@ export function BackToTop() {
         boxShadow: hovered ? '0 8px 24px rgba(139,92,246,0.12)' : 'none',
       }}
     >
-      {/* Chevron up icon */}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 15l-6-6-6 6" />
       </svg>

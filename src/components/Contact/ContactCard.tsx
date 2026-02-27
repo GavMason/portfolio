@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useInView } from '../../hooks/useInView'
+import { useState, useRef } from 'react'
+import { useInView } from 'framer-motion'
 import type { ContactLink } from '../../data/contact'
 
 interface ContactCardProps {
@@ -9,7 +9,8 @@ interface ContactCardProps {
 
 export function ContactCard({ link, delay = 0 }: ContactCardProps) {
   const [hovered, setHovered] = useState(false)
-  const [ref, visible] = useInView(0.2)
+  const ref = useRef(null)
+  const visible = useInView(ref, { once: true, amount: 0.2 })
 
   // Resume card uses green accent, everything else uses purple
   const accentColor = link.isResume ? '74,222,128' : '139,92,246'
