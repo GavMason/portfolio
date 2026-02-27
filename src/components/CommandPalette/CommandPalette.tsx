@@ -27,22 +27,28 @@ const BASE_ITEMS: CommandItem[] = [
   { label: 'Download Resume', action: import.meta.env.VITE_RESUME_PATH || '#', icon: '📄' },
 ]
 
-export function CommandPalette({ open, onClose, onTriggerDvd, onTriggerGravity }: CommandPaletteProps) {
+/** Wrapper - mounts/unmounts the inner panel so state resets naturally */
+export function CommandPalette(props: CommandPaletteProps) {
+  if (!props.open) return null
+  return <CommandPaletteInner {...props} />
+}
+
+/** Inner panel */
+function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: CommandPaletteProps) {
   const [query, setQuery] = useState('')
   const [activeIdx, setActiveIdx] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Easter eggs
   const ITEMS = useMemo<CommandItem[]>(() => [
     ...BASE_ITEMS,
     { label: 'DVD Screensaver', action: '', icon: '📀', callback: onTriggerDvd },
     { label: 'Break Everything', action: '', icon: '💥', callback: onTriggerGravity },
   ], [onTriggerDvd, onTriggerGravity])
 
-  // Focus input on mount
+  // Autofocus on mount
   useEffect(() => {
-    if (open) requestAnimationFrame(() => inputRef.current?.focus())
-  }, [open])
+    inputRef.current?.focus()
+  }, [])
 
   const filtered = ITEMS.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))
 
@@ -55,9 +61,8 @@ export function CommandPalette({ open, onClose, onTriggerDvd, onTriggerGravity }
     }
   }, [onClose])
 
-  // Handle keyboard events
+  // Keyboard navigation
   useEffect(() => {
-    if (!open) return
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault()
@@ -73,9 +78,7 @@ export function CommandPalette({ open, onClose, onTriggerDvd, onTriggerGravity }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [open, filtered, activeIdx, executeItem])
-
-  if (!open) return null
+  }, [filtered, activeIdx, executeItem])
 
   return (
     <div

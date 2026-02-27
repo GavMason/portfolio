@@ -7,7 +7,7 @@ export function Terminal() {
   const [lines, setLines] = useState<TerminalLine[]>([])
   const [ref, visible] = useInView(0.3)
   const started = useRef(false)
-  const empty = lines.length === 0
+  const [cycle, setCycle] = useState(0)
 
   useEffect(() => {
     // Guard so scrolling back into view doesn't restart mid-animation
@@ -20,10 +20,11 @@ export function Terminal() {
     const interval = setInterval(() => {
       if (idx >= TERMINAL_LINES.length) {
         clearInterval(interval)
-        // Replay after 60s - clear lines and re-trigger
+        // Replay after 60s
         replayTimer = setTimeout(() => {
           setLines([])
           started.current = false
+          setCycle((c) => c + 1)
         }, 60_000)
         return
       }
@@ -36,7 +37,7 @@ export function Terminal() {
       clearInterval(interval)
       clearTimeout(replayTimer)
     }
-  }, [visible, empty])
+  }, [visible, cycle])
 
   return (
     <div
