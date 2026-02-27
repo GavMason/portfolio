@@ -10,6 +10,7 @@ export function ScrollProgress() {
       className="fixed top-0 left-0 h-0.5 z-200 pointer-events-none overflow-hidden"
       style={{ width: `${progress * 100}%` }}
     >
+      {/* Gradient bar that fills as the user scrolls */}
       <div
         className="w-full h-full bg-linear-to-r from-accent via-accent-indigo to-accent-blue"
         style={{ boxShadow: '0 0 10px var(--color-accent-glow)' }}

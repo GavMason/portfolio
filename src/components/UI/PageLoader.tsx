@@ -35,6 +35,7 @@ export function PageLoader({ onDone }: PageLoaderProps) {
         transition: 'opacity 0.4s ease',
       }}
     >
+      {/* Logo wordmark */}
       <span
         className="text-[28px] font-black text-accent-light"
         style={{

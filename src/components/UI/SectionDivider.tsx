@@ -5,6 +5,7 @@ export function SectionDivider() {
 
   return (
     <div ref={ref} className="max-w-250 mx-auto px-10">
+      {/* Gradient line - scales in on scroll */}
       <div
         className="h-px overflow-hidden"
         style={{
