@@ -18,6 +18,7 @@ import { Ticker } from './components/UI/Ticker'
 import { DVDScreensaver } from './components/EasterEggs/DVDScreensaver'
 import { GravityMode } from './components/EasterEggs/GravityMode'
 import { SectionDivider } from './components/UI/SectionDivider'
+import { CmdKHint } from './components/UI/CmdKHint'
 import { NAV } from './data/navigation'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
   const [loaded, setLoaded] = useState(false)
   const [dvdMode, setDvdMode] = useState(false)
   const [gravityMode, setGravityMode] = useState(false)
+  const [cmdUsed, setCmdUsed] = useState(false)
 
   // Callbacks
   const handleLoaded = useCallback(() => setLoaded(true), [])
@@ -55,6 +57,7 @@ function App() {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault()
         setCmdOpen((p) => !p)
+        setCmdUsed(true)
       }
       if (e.key === 'Escape') setCmdOpen(false)
     }
@@ -79,6 +82,10 @@ function App() {
         onTriggerGravity={() => { setCmdOpen(false); setGravityMode(true) }}
       />
       <BackToTop />
+      <CmdKHint
+        dismissed={cmdUsed}
+        onClick={() => { setCmdOpen(true); setCmdUsed(true) }}
+      />
 
       <Hero loaded={loaded} />
       <Ticker />
