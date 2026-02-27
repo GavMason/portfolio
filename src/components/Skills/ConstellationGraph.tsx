@@ -14,13 +14,13 @@ export function ConstellationGraph() {
 
   return (
     <div ref={ref} className="relative w-full">
-      <div className="relative w-full" style={{ paddingTop: '50%' }}>
+      <div className="relative w-full" style={{ paddingTop: '55%' }}>
         <svg
-          viewBox="0 0 100 90"
+          viewBox="-8 -4 166 100"
           className="absolute top-0 left-0 w-full h-full transition-opacity duration-1000"
           style={{ opacity: visible ? 1 : 0 }}
         >
-          {/* SVG glow filters - one per category color */}
+          {/* SVG glow filters */}
           <defs>
             {CAT_COLORS.map((_, i) => (
               <filter key={i} id={`glow${i}`}>
@@ -33,12 +33,13 @@ export function ConstellationGraph() {
             ))}
           </defs>
 
-          {/* Connections */}
+          {/* Connections - only within categories */}
           {CONNECTIONS.map(({ i, j }, k) => {
             const a = SKILLS_DATA[i]
             const b = SKILLS_DATA[j]
             const active = hovered !== null && (hovered === i || hovered === j)
-            const bothCat = effectiveCat !== null && a.cat === effectiveCat && b.cat === effectiveCat
+            const bothCat = effectiveCat !== null && a.cat === effectiveCat
+            const dim = effectiveCat !== null && a.cat !== effectiveCat
 
             return (
               <line
@@ -51,23 +52,24 @@ export function ConstellationGraph() {
                   active
                     ? CAT_COLORS[a.cat].fill
                     : bothCat
-                    ? `rgba(${CAT_COLORS[a.cat].glow},0.25)`
-                    : 'rgba(255,255,255,0.025)'
+                    ? `rgba(${CAT_COLORS[a.cat].glow},0.2)`
+                    : dim
+                    ? 'rgba(255,255,255,0.01)'
+                    : 'rgba(255,255,255,0.04)'
                 }
-                strokeWidth={active ? 0.5 : bothCat ? 0.25 : 0.12}
+                strokeWidth={active ? 0.4 : 0.18}
                 style={{ transition: 'all 0.5s cubic-bezier(.4,0,.2,1)' }}
               />
             )
           })}
 
-          {/* Nodes - each skill renders as a circle with 3 visual states: hovered, same-category, or dimmed */}
+          {/* Nodes */}
           {SKILLS_DATA.map((s, i) => {
             const isH = hovered === i
             const isCat = effectiveCat === s.cat && !isH
             const dim = effectiveCat !== null && effectiveCat !== s.cat && !isH
             const col = CAT_COLORS[s.cat]
-            // Scale node radius based on state
-            const nodeR = isH ? s.r * 0.7 : isCat ? s.r * 0.55 : s.r * 0.45
+            const nodeR = isH ? s.r * 0.8 : isCat ? s.r * 0.65 : s.r * 0.5
 
             return (
               <g
@@ -76,15 +78,18 @@ export function ConstellationGraph() {
                 onMouseLeave={() => setHovered(null)}
                 className="cursor-pointer"
               >
-                {/* Animated pulsing halo around hovered node */}
+                {/* Hover halo */}
                 {isH && (
-                  <>
-                    <circle cx={s.x} cy={s.y} r={s.r + 3} fill="none" stroke={`rgba(${col.glow},0.08)`} strokeWidth="0.4">
-                      <animate attributeName="r" values={`${s.r + 2.5};${s.r + 3.5};${s.r + 2.5}`} dur="3s" repeatCount="indefinite" />
-                    </circle>
-                    <circle cx={s.x} cy={s.y} r={s.r + 1.8} fill={`rgba(${col.glow},0.04)`} />
-                  </>
+                  <circle
+                    cx={s.x}
+                    cy={s.y}
+                    r={s.r + 2.5}
+                    fill={`rgba(${col.glow},0.04)`}
+                    stroke={`rgba(${col.glow},0.12)`}
+                    strokeWidth="0.3"
+                  />
                 )}
+                {/* Main dot */}
                 <circle
                   cx={s.x}
                   cy={s.y}
@@ -93,48 +98,36 @@ export function ConstellationGraph() {
                     isH
                       ? col.fill
                       : isCat
-                      ? col.fill.replace('0.9', '0.4').replace('0.85', '0.35')
+                      ? `rgba(${col.glow},0.4)`
                       : dim
-                      ? 'rgba(255,255,255,0.04)'
-                      : 'rgba(255,255,255,0.08)'
+                      ? 'rgba(255,255,255,0.03)'
+                      : 'rgba(255,255,255,0.07)'
                   }
                   filter={isH ? `url(#glow${s.cat})` : 'none'}
                   style={{ transition: 'all 0.4s cubic-bezier(.4,0,.2,1)' }}
                 />
-                {/* Bright center dot on hovered node */}
+                {/* Center highlight on hover */}
                 {isH && (
-                  <circle cx={s.x} cy={s.y} r={nodeR * 0.35} fill={col.fill.replace('0.9', '1').replace('0.85', '1')} />
-                )}
-                {/* Ring outline on hovered/active-category nodes */}
-                {(isH || isCat) && (
-                  <circle
-                    cx={s.x}
-                    cy={s.y}
-                    r={nodeR + 0.6}
-                    fill="none"
-                    stroke={isH ? col.fill : `rgba(${col.glow},0.15)`}
-                    strokeWidth={isH ? '0.25' : '0.15'}
-                    opacity={isH ? 0.5 : 0.3}
-                  />
+                  <circle cx={s.x} cy={s.y} r={nodeR * 0.3} fill="rgba(255,255,255,0.6)" />
                 )}
                 {/* Label */}
                 <text
                   x={s.x}
                   y={s.y + s.r + 3}
                   textAnchor="middle"
-                  fontSize={isH ? '2.6' : '1.9'}
+                  fontSize={isH ? '2.8' : '2.1'}
                   fill={
                     isH
                       ? col.fill
-                      : dim
-                      ? 'rgba(255,255,255,0.08)'
                       : isCat
                       ? `rgba(${col.glow},0.7)`
-                      : 'rgba(255,255,255,0.28)'
+                      : dim
+                      ? 'rgba(255,255,255,0)'
+                      : 'rgba(255,255,255,0.15)'
                   }
                   fontFamily="'Satoshi', sans-serif"
                   fontWeight={isH ? '700' : isCat ? '500' : '400'}
-                  style={{ transition: 'all 0.4s' }}
+                  style={{ transition: 'all 0.4s', pointerEvents: 'none' }}
                 >
                   {s.name}
                 </text>
@@ -146,7 +139,7 @@ export function ConstellationGraph() {
         {/* Tooltip */}
         {hovered !== null && (() => {
           const s = SKILLS_DATA[hovered]
-          return <SkillTooltip skill={s} x={s.x} y={(s.y / 90) * 100} color={CAT_COLORS[s.cat]} />
+          return <SkillTooltip skill={s} x={(s.x / 150) * 100} y={(s.y / 96) * 100} color={CAT_COLORS[s.cat]} />
         })()}
       </div>
 
