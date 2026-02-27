@@ -11,15 +11,30 @@ export function GradientMesh() {
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     // Animation loop - drives time-based oscillation of gradient positions
-    const start = performance.now()
+    let start = performance.now()
+    let pausedAt = 0
+
     const animate = (now: number) => {
-      setTime((now - start) * 0.0004) // Scale ms -> slow float for oscillation
+      setTime((now - start) * 0.0004)
       rafRef.current = requestAnimationFrame(animate)
     }
     rafRef.current = requestAnimationFrame(animate)
 
+    // Pause when tab is hidden, resume without a jump
+    const onVisibility = () => {
+      if (document.hidden) {
+        pausedAt = performance.now()
+        cancelAnimationFrame(rafRef.current)
+      } else {
+        start += performance.now() - pausedAt
+        rafRef.current = requestAnimationFrame(animate)
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('visibilitychange', onVisibility)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
   }, [])
