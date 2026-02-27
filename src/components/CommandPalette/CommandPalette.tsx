@@ -1,11 +1,20 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
 interface CommandPaletteProps {
   open: boolean
   onClose: () => void
+  onTriggerGravity?: () => void
 }
 
-const ITEMS = [
+interface CommandItem {
+  label: string
+  action: string
+  icon: string
+  keys?: string
+  callback?: () => void
+}
+
+const BASE_ITEMS: CommandItem[] = [
   { label: 'Go to About', action: '#about', icon: '→', keys: '01' },
   { label: 'Go to Projects', action: '#projects', icon: '→', keys: '02' },
   { label: 'Go to Skills', action: '#skills', icon: '→', keys: '03' },
@@ -17,10 +26,16 @@ const ITEMS = [
   { label: 'Download Resume', action: import.meta.env.VITE_RESUME_PATH || '#', icon: '📄' },
 ]
 
-export function CommandPalette({ open, onClose }: CommandPaletteProps) {
+export function CommandPalette({ open, onClose, onTriggerGravity }: CommandPaletteProps) {
   const [query, setQuery] = useState('')
   const [activeIdx, setActiveIdx] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Easter eggs
+  const ITEMS = useMemo<CommandItem[]>(() => [
+    ...BASE_ITEMS,
+    { label: 'Break Everything', action: '', icon: '💥', callback: onTriggerGravity },
+  ], [onTriggerGravity])
 
   // Focus input on mount
   useEffect(() => {
@@ -28,6 +43,15 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   }, [open])
 
   const filtered = ITEMS.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))
+
+  const executeItem = useCallback((item: CommandItem) => {
+    if (item.callback) {
+      item.callback()
+    } else {
+      window.location.hash = item.action
+      onClose()
+    }
+  }, [onClose])
 
   // Handle keyboard events
   useEffect(() => {
@@ -42,13 +66,12 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         setActiveIdx((p) => (p - 1 + filtered.length) % filtered.length)
       }
       if (e.key === 'Enter' && filtered[activeIdx]) {
-        window.location.hash = filtered[activeIdx].action
-        onClose()
+        executeItem(filtered[activeIdx])
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [open, filtered, activeIdx, onClose])
+  }, [open, filtered, activeIdx, executeItem])
 
   if (!open) return null
 
@@ -81,13 +104,17 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           {filtered.map((item, i) => (
             <a
               key={i}
-              href={item.action}
-              onClick={onClose}
+              href={item.callback ? undefined : item.action}
+              onClick={(e) => {
+                e.preventDefault()
+                executeItem(item)
+              }}
               onMouseEnter={() => setActiveIdx(i)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-[10px] no-underline text-sm transition-all duration-150"
               style={{
                 color: i === activeIdx ? 'var(--color-accent-light)' : 'var(--color-text-subtle)',
                 background: i === activeIdx ? 'var(--color-accent-faint)' : 'transparent',
+                cursor: 'pointer',
               }}
             >
               <span className="text-sm opacity-50">{item.icon}</span>
