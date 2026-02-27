@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useScroll, useMotionValueEvent } from 'framer-motion'
+import { ChevronUp } from 'lucide-react'
 
 export function BackToTop() {
   const [show, setShow] = useState(false)
@@ -24,9 +25,7 @@ export function BackToTop() {
         boxShadow: hovered ? '0 8px 24px rgba(139,92,246,0.12)' : 'none',
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 15l-6-6-6 6" />
-      </svg>
+      <ChevronUp size={16} strokeWidth={2.5} />
     </button>
   )
 }
