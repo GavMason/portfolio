@@ -29,7 +29,7 @@ export function Projects() {
           <div className="text-center mt-10">
             <a
               href={import.meta.env.VITE_ALL_PROJECTS_URL || '#'}
-              className="no-underline text-[13px] font-medium pb-1 text-accent-light-faint border-b border-accent-light-ghost"
+              className="no-underline text-[13px] font-medium pb-1 text-accent-light-faint border-b border-transparent hover:border-accent-light-faint transition-all duration-300"
             >
               View all projects →
             </a>

@@ -20,8 +20,11 @@ export function SectionHeader({ number, title, subtitle, sectionId }: SectionHea
             href={`#${sectionId}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="text-sm font-medium tracking-[2px] font-mono no-underline transition-colors duration-300"
-            style={{ color: hovered ? 'rgba(139,92,246,0.6)' : 'var(--color-accent-muted)' }}
+            className="text-sm font-medium tracking-[2px] font-mono no-underline transition-all duration-300 cursor-pointer border-b"
+            style={{
+              color: hovered ? 'var(--color-accent-vivid)' : 'var(--color-accent-muted)',
+              borderColor: hovered ? 'var(--color-accent-glow)' : 'transparent',
+            }}
           >
             {number}
           </a>

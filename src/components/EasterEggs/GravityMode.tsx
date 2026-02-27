@@ -216,18 +216,18 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
             onClick={handleRebuild}
             className="px-5 py-2.5 rounded-xl text-sm font-medium border cursor-pointer"
             style={{
-              background: 'rgba(139, 92, 246, 0.15)',
-              borderColor: 'rgba(139, 92, 246, 0.3)',
-              color: '#c4b5fd',
+              background: 'var(--color-accent-subtle)',
+              borderColor: 'var(--color-accent-muted)',
+              color: 'var(--color-accent-light)',
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(139, 92, 246, 0.25)'
-              e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.5)'
+              e.currentTarget.style.background = 'var(--color-accent-border-hover)'
+              e.currentTarget.style.borderColor = 'var(--color-accent-semi)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(139, 92, 246, 0.15)'
-              e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'
+              e.currentTarget.style.background = 'var(--color-accent-subtle)'
+              e.currentTarget.style.borderColor = 'var(--color-accent-muted)'
             }}
           >
             Rebuild

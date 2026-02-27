@@ -22,7 +22,7 @@ export function BackToTop() {
         opacity: show ? 1 : 0,
         pointerEvents: show ? 'auto' : 'none',
         transform: show ? 'translateY(0)' : 'translateY(10px)',
-        boxShadow: hovered ? '0 8px 24px rgba(139,92,246,0.12)' : 'none',
+        boxShadow: hovered ? '0 8px 24px var(--color-accent-border)' : 'none',
       }}
     >
       <ChevronUp size={16} strokeWidth={2.5} />

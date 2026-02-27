@@ -46,10 +46,9 @@ export function Navbar({ active }: NavbarProps) {
           <a
             key={n.href}
             href={n.href}
-            className="no-underline text-[10px] md:text-xs font-medium tracking-widest uppercase transition-colors duration-300 relative"
-            style={{
-              color: active === n.href.slice(1) ? 'var(--color-accent-light-strong)' : 'var(--color-text-soft)',
-            }}
+            className={`no-underline text-[10px] md:text-xs font-medium tracking-widest uppercase transition-colors duration-300 relative ${
+              active === n.href.slice(1) ? 'text-accent-light-strong' : 'text-text-soft hover:text-accent-light'
+            }`}
           >
             {n.label}
             {/* Active indicator dot */}

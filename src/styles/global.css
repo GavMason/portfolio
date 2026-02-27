@@ -51,6 +51,8 @@
   --color-accent-border: rgba(139, 92, 246, 0.1);
   --color-accent-border-hover: rgba(139, 92, 246, 0.25);
   --color-accent-glow: rgba(139, 92, 246, 0.4);
+  --color-accent-semi: rgba(139, 92, 246, 0.5);
+  --color-accent-vivid: rgba(139, 92, 246, 0.6);
   --color-accent-light-strong: rgba(196, 181, 253, 0.9);
   --color-accent-light-muted: rgba(196, 181, 253, 0.6);
   --color-accent-light-faint: rgba(196, 181, 253, 0.4);
