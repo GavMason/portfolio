@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-const SPRING = { damping: 20, stiffness: 300, mass: 0.5 }
+const SPRING = { damping: 30, stiffness: 150, mass: 0.2 }
 
 export function GlowCursor() {
   const [isTouch] = useState(() => 'ontouchstart' in window)
