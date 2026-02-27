@@ -78,7 +78,7 @@ export function About() {
                   After Hours
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {['🎮 Retro Gaming', '🖥️ Homelab', '🛠️ Side Projects', '🧪 Experimenting'].map((hobby, i) => (
+                  {['🖥️ Homelab', '🛠️ Side Projects', '🧪 Experimenting'].map((hobby, i) => (
                     <span
                       key={i}
                       className="text-xs px-3 py-1.5 rounded-lg text-text-body bg-border border border-border"
