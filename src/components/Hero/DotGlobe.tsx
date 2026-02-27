@@ -37,27 +37,37 @@ export function DotGlobe({ visible }: DotGlobeProps) {
       // This produces a nearly uniform point spread without clustering at the poles
       const dotCount = 1200
       const goldenRatio = (1 + Math.sqrt(5)) / 2
-      const dotGeo = new THREE.SphereGeometry(0.012, 6, 6) // Tiny 6-segment spheres as dots
+      const dotGeo = new THREE.SphereGeometry(0.012, 6, 6)
+      const dotMat = new THREE.MeshBasicMaterial({
+        transparent: true,
+        opacity: 0.45,
+      })
+      const dots = new THREE.InstancedMesh(dotGeo, dotMat, dotCount)
+      const dummy = new THREE.Object3D()
+      const color = new THREE.Color()
 
       for (let i = 0; i < dotCount; i++) {
-        const theta = (2 * Math.PI * i) / goldenRatio   // Golden angle spiral
-        const phi = Math.acos(1 - (2 * (i + 0.5)) / dotCount) // Even latitude distribution
-        const x = radius * Math.cos(theta) * Math.sin(phi)
-        const y = radius * Math.sin(theta) * Math.sin(phi)
-        const z = radius * Math.cos(phi)
+        const theta = (2 * Math.PI * i) / goldenRatio
+        const phi = Math.acos(1 - (2 * (i + 0.5)) / dotCount)
+        dummy.position.set(
+          radius * Math.cos(theta) * Math.sin(phi),
+          radius * Math.sin(theta) * Math.sin(phi),
+          radius * Math.cos(phi)
+        )
+        dummy.updateMatrix()
+        dots.setMatrixAt(i, dummy.matrix)
 
-        // Randomize each dot's color within a purple range (R: 0.55–0.75, G: 0.36–0.51, B: 0.92–1.0)
+        // Randomize color within a purple range, vary brightness for depth
         const t = Math.random()
-        const color = new THREE.Color().setRGB(0.55 + t * 0.2, 0.36 + t * 0.15, 0.92 + t * 0.08)
-        const mat = new THREE.MeshBasicMaterial({
-          color,
-          transparent: true,
-          opacity: 0.35 + Math.random() * 0.25, // Opacity for depth variation
-        })
-        const dot = new THREE.Mesh(dotGeo, mat)
-        dot.position.set(x, y, z)
-        globe.add(dot)
+        const brightness = 0.6 + Math.random() * 0.4
+        color.setRGB(
+          (0.55 + t * 0.2) * brightness,
+          (0.36 + t * 0.15) * brightness,
+          (0.92 + t * 0.08) * brightness
+        )
+        dots.setColorAt(i, color)
       }
+      globe.add(dots)
 
       // Wireframe grid lines
       const lineMat = new THREE.LineBasicMaterial({
