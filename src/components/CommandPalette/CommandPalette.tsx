@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 interface CommandPaletteProps {
   open: boolean
   onClose: () => void
+  onTriggerDvd?: () => void
   onTriggerGravity?: () => void
 }
 
@@ -26,7 +27,7 @@ const BASE_ITEMS: CommandItem[] = [
   { label: 'Download Resume', action: import.meta.env.VITE_RESUME_PATH || '#', icon: '📄' },
 ]
 
-export function CommandPalette({ open, onClose, onTriggerGravity }: CommandPaletteProps) {
+export function CommandPalette({ open, onClose, onTriggerDvd, onTriggerGravity }: CommandPaletteProps) {
   const [query, setQuery] = useState('')
   const [activeIdx, setActiveIdx] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -34,8 +35,9 @@ export function CommandPalette({ open, onClose, onTriggerGravity }: CommandPalet
   // Easter eggs
   const ITEMS = useMemo<CommandItem[]>(() => [
     ...BASE_ITEMS,
+    { label: 'DVD Screensaver', action: '', icon: '📀', callback: onTriggerDvd },
     { label: 'Break Everything', action: '', icon: '💥', callback: onTriggerGravity },
-  ], [onTriggerGravity])
+  ], [onTriggerDvd, onTriggerGravity])
 
   // Focus input on mount
   useEffect(() => {

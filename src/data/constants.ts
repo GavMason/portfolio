@@ -1,5 +1,3 @@
-export const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
-
 export const HERO_BIO = "I'm a software engineer who got into this because I like making things. These days that means I'm building web apps and ML systems at work, and going down rabbit holes and homelab tinkering after hours."
 
 export function getGreeting(): string {

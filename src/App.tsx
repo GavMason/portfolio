@@ -18,7 +18,6 @@ import { Ticker } from './components/UI/Ticker'
 import { DVDScreensaver } from './components/EasterEggs/DVDScreensaver'
 import { GravityMode } from './components/EasterEggs/GravityMode'
 import { SectionDivider } from './components/UI/SectionDivider'
-import { useKonami } from './hooks/useKonamiCode'
 import { NAV } from './data/navigation'
 
 function App() {
@@ -31,8 +30,6 @@ function App() {
 
   // Callbacks
   const handleLoaded = useCallback(() => setLoaded(true), [])
-  const triggerDvd = useCallback(() => setDvdMode(true), [])
-  useKonami(triggerDvd)
 
   // Track active section
   useEffect(() => {
@@ -78,6 +75,7 @@ function App() {
       <CommandPalette
         open={cmdOpen}
         onClose={() => setCmdOpen(false)}
+        onTriggerDvd={() => { setCmdOpen(false); setDvdMode(true) }}
         onTriggerGravity={() => { setCmdOpen(false); setGravityMode(true) }}
       />
       <BackToTop />
