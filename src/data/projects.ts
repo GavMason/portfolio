@@ -11,13 +11,14 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    title: 'Maikono',
+    title: 'Maikona',
     description: 'A platform currently taking shape. Details coming as it develops - stay tuned.',
     tags: ['In Progress'],
     status: 'active',
     accent: '139,92,246',
     preview: 'linear-gradient(135deg, #1a1040, #2d1b69, #1a1040)',
     mockup: 'platform',
+    link: import.meta.env.VITE_MAIKONA_URL || '#',
   },
   {
     title: 'Homelab Observation Stack',

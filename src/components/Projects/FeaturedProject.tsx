@@ -10,11 +10,14 @@ interface FeaturedProjectProps {
 export function FeaturedProject({ project }: FeaturedProjectProps) {
   const [hovered, setHovered] = useState(false)
 
+  const Wrapper = project.link ? 'a' : 'div'
+
   return (
-    <div
+    <Wrapper
+      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative rounded-3xl mb-5 p-px cursor-pointer"
+      className="relative rounded-3xl mb-5 p-px cursor-pointer block no-underline"
     >
       {/* Rotating gradient border */}
       <div
@@ -92,6 +95,6 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Wrapper>
   )
 }

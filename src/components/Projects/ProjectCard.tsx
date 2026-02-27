@@ -9,11 +9,14 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false)
 
+  const Wrapper = project.link ? 'a' : 'div'
+
   return (
-    <div
+    <Wrapper
+      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="rounded-[20px] overflow-hidden transition-all duration-500 bg-surface"
+      className="rounded-[20px] overflow-hidden transition-all duration-500 bg-surface block no-underline"
       style={{
         border: `1px solid ${hovered ? `rgba(${project.accent},0.2)` : 'var(--color-border)'}`,
         transform: hovered ? 'translateY(-6px)' : 'none',
@@ -87,6 +90,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
       </div>
-    </div>
+    </Wrapper>
   )
 }
