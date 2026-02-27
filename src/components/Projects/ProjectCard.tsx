@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { MockupContent } from './MockupContent'
+import { useHover } from '../../hooks/useHover'
 import type { Project } from '../../data/projects'
 
 interface ProjectCardProps {
@@ -7,15 +7,14 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const [hovered, setHovered] = useState(false)
+  const [hovered, hoverHandlers] = useHover()
 
   const Wrapper = project.link ? 'a' : 'div'
 
   return (
     <Wrapper
       {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      {...hoverHandlers}
       className="rounded-[20px] overflow-hidden transition-all duration-500 bg-surface block no-underline"
       style={{
         border: `1px solid ${hovered ? `rgba(${project.accent},0.2)` : 'var(--color-border)'}`,

@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { MockupContent } from './MockupContent'
 import { TopoLines } from '../Effects/TopoLines'
+import { useHover } from '../../hooks/useHover'
 import type { Project } from '../../data/projects'
 
 interface FeaturedProjectProps {
@@ -8,15 +8,14 @@ interface FeaturedProjectProps {
 }
 
 export function FeaturedProject({ project }: FeaturedProjectProps) {
-  const [hovered, setHovered] = useState(false)
+  const [hovered, hoverHandlers] = useHover()
 
   const Wrapper = project.link ? 'a' : 'div'
 
   return (
     <Wrapper
       {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      {...hoverHandlers}
       className="relative rounded-3xl mb-5 p-px cursor-pointer block no-underline"
     >
       {/* Rotating gradient border */}
