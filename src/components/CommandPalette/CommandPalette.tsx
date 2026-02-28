@@ -38,6 +38,9 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
   const [query, setQuery] = useState('')
   const [activeIdx, setActiveIdx] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const previousFocus = useRef<Element | null>(null)
+  const mouseMoved = useRef(false)
 
   const ITEMS = useMemo<CommandItem[]>(() => [
     ...BASE_ITEMS,
@@ -45,9 +48,15 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
     { label: 'Break Everything', action: '', icon: '💥', callback: onTriggerGravity },
   ], [onTriggerDvd, onTriggerGravity])
 
-  // Autofocus on mount
+  // Save previous focus, autofocus input, restore on unmount
   useEffect(() => {
+    previousFocus.current = document.activeElement
     inputRef.current?.focus()
+    return () => {
+      if (previousFocus.current instanceof HTMLElement) {
+        previousFocus.current.focus()
+      }
+    }
   }, [])
 
   const filtered = ITEMS.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))
@@ -61,24 +70,41 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
     }
   }, [onClose])
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowDown') {
+  // Keyboard navigation + focus trap + escape
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setActiveIdx((p) => (p + 1) % filtered.length)
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setActiveIdx((p) => (p - 1 + filtered.length) % filtered.length)
+    }
+    if (e.key === 'Enter' && filtered[activeIdx]) {
+      executeItem(filtered[activeIdx])
+    }
+    if (e.key === 'Escape') {
+      onClose()
+    }
+    // Focus trap
+    if (e.key === 'Tab') {
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'input, a[href], button, [tabindex]:not([tabindex="-1"])',
+      )
+      if (!focusable || focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
         e.preventDefault()
-        setActiveIdx((p) => (p + 1) % filtered.length)
-      }
-      if (e.key === 'ArrowUp') {
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault()
-        setActiveIdx((p) => (p - 1 + filtered.length) % filtered.length)
-      }
-      if (e.key === 'Enter' && filtered[activeIdx]) {
-        executeItem(filtered[activeIdx])
+        first.focus()
       }
     }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [filtered, activeIdx, executeItem])
+  }
+
+  const activeId = filtered[activeIdx] ? `cmd-option-${activeIdx}` : undefined
 
   return (
     <div
@@ -86,6 +112,12 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
       className="fixed inset-0 z-999 flex items-start justify-center pt-[20vh] bg-bg-overlay backdrop-blur-lg"
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
+        onKeyDown={handleKeyDown}
+        onMouseMove={() => { mouseMoved.current = true }}
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-120 rounded-2xl overflow-hidden bg-surface-raised border border-border-hover"
         style={{ boxShadow: '0 40px 100px rgba(0,0,0,0.5)' }}
@@ -100,21 +132,29 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
               setActiveIdx(0)
             }}
             placeholder="Where do you want to go?"
+            aria-label="Search commands"
+            aria-activedescendant={activeId}
+            aria-controls="cmd-results"
+            role="combobox"
+            aria-expanded="true"
             className="w-full bg-transparent border-none outline-none text-[15px] font-sans text-text-secondary"
           />
         </div>
 
         {/* Results */}
-        <div className="p-2 max-h-75 overflow-y-auto">
+        <div id="cmd-results" role="listbox" aria-label="Commands" className="p-2 max-h-75 overflow-y-auto">
           {filtered.map((item, i) => (
             <a
               key={i}
+              id={`cmd-option-${i}`}
+              role="option"
+              aria-selected={i === activeIdx}
               href={item.callback ? undefined : item.action}
               onClick={(e) => {
                 e.preventDefault()
                 executeItem(item)
               }}
-              onMouseEnter={() => setActiveIdx(i)}
+              onMouseEnter={() => mouseMoved.current && setActiveIdx(i)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-[10px] no-underline text-sm transition-all duration-150"
               style={{
                 color: i === activeIdx ? 'var(--color-accent-light)' : 'var(--color-text-subtle)',

@@ -7,6 +7,8 @@ interface TypingTextProps {
   delay?: number
 }
 
+const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 export function TypingText({ text, trigger, speed = 22, delay = 0 }: TypingTextProps) {
   const [displayed, setDisplayed] = useState('')
   const [started, setStarted] = useState(false)
@@ -15,13 +17,19 @@ export function TypingText({ text, trigger, speed = 22, delay = 0 }: TypingTextP
   // Delay before typing begins
   useEffect(() => {
     if (!trigger) return
+    if (prefersStatic) {
+      setStarted(true)
+      setDisplayed(text)
+      setShowCursor(false)
+      return
+    }
     const t = setTimeout(() => setStarted(true), delay)
     return () => clearTimeout(t)
-  }, [trigger, delay])
+  }, [trigger, delay, text])
 
   // Character-by-character typing animation
   useEffect(() => {
-    if (!started) return
+    if (!started || prefersStatic) return
     let i = 0
     const interval = setInterval(() => {
       i++

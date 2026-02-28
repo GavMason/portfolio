@@ -38,7 +38,7 @@ function App() {
 
   // Track active section
   useEffect(() => {
-    const ids = ['hero', ...NAV.map((n) => n.href.slice(1))]
+    const ids = NAV.map((n) => n.href.slice(1))
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
         if (e.isIntersecting) setActive(e.target.id)

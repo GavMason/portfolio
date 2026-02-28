@@ -119,8 +119,16 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
       window.addEventListener('mousemove', onMove)
 
       // Animation loop
+      const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       let raf: number
       const smoothMouse = { x: 0, y: 0 }
+
+      if (prefersStatic) {
+        globe.rotation.y = 0.5
+        globe.rotation.x = 0.2
+        renderer.render(scene, camera)
+      }
+
       const animate = () => {
         const time = performance.now() * 0.001 // Convert ms -> seconds
         // Double lerp: 0.12 scales mouse influence, 0.03 smooths the approach
@@ -131,7 +139,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
         renderer.render(scene, camera)
         raf = requestAnimationFrame(animate)
       }
-      raf = requestAnimationFrame(animate)
+      if (!prefersStatic) raf = requestAnimationFrame(animate)
 
       const onResize = () => {
         const nw = el.clientWidth
