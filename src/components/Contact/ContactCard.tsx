@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useRef, type CSSProperties } from 'react'
 import { useInView } from 'framer-motion'
 import type { ContactLink } from '../../data/contact'
 
@@ -8,70 +8,38 @@ interface ContactCardProps {
 }
 
 export function ContactCard({ link, delay = 0 }: ContactCardProps) {
-  const [hovered, setHovered] = useState(false)
   const ref = useRef(null)
   const visible = useInView(ref, { once: true, amount: 0.2 })
 
-  // Resume card uses green accent, everything else uses purple
-  const accentColor = link.isResume ? '74,222,128' : '139,92,246'
-  const textColor = link.isResume ? 'var(--color-accent-green)' : 'var(--color-accent-light)'
+  const accent = link.isResume ? '74,222,128' : '139,92,246'
 
   return (
     <div ref={ref}>
       <a
         href={link.href}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="flex flex-col items-center gap-3 rounded-2xl no-underline"
+        className="group inline-flex items-center justify-center gap-3 rounded-full no-underline px-6 py-3 min-w-36
+          bg-surface border border-border transition-all duration-300
+          hover:bg-[rgba(var(--_accent),0.08)] hover:border-[rgba(var(--_accent),0.2)]
+          hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(var(--_accent),0.1)]"
         style={{
-          flex: '1 1 130px',
-          maxWidth: '160px',
-          padding: '24px 16px',
-          background: hovered ? `rgba(${accentColor},0.06)` : 'var(--color-surface)',
-          border: `1px solid ${hovered ? `rgba(${accentColor},0.18)` : 'var(--color-border-hover)'}`,
-          transform: hovered ? 'translateY(-4px)' : visible ? 'none' : 'translateY(20px)',
-          boxShadow: hovered ? `0 16px 40px rgba(${accentColor},0.08)` : 'none',
+          '--_accent': accent,
           opacity: visible ? 1 : 0,
-          transition: `background 0.15s ease, border 0.15s ease, transform 0.2s ease, box-shadow 0.15s ease, opacity 0.5s ease`,
+          transform: visible ? undefined : 'translateY(20px)',
           transitionDelay: visible ? '0ms' : `${delay}ms`,
-        }}
+        } as CSSProperties}
       >
-        {/* Icon */}
-        <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: hovered ? `rgba(${accentColor},0.1)` : 'var(--color-surface)',
-            border: `1px solid ${hovered ? `rgba(${accentColor},0.15)` : 'var(--color-border-hover)'}`,
-            color: hovered ? textColor : 'var(--color-text-soft)',
-            transition: 'background 0.15s ease, border 0.15s ease, color 0.15s ease',
-          }}
-        >
+        <span className="text-text-muted transition-colors duration-200 group-hover:text-[rgba(var(--_accent),0.9)]">
           {link.icon}
-        </div>
-        {/* Label */}
-        <span
-          className="text-[13px] font-semibold tracking-wide transition-colors duration-300"
-          style={{ color: hovered ? textColor : 'var(--color-text-muted)' }}
-        >
+        </span>
+        <span className="text-sm font-medium text-text-body transition-colors duration-200 group-hover:text-[rgba(var(--_accent),0.9)]">
           {link.label}
         </span>
-        {/* Resume shows "PDF" badge, others show arrow indicator */}
-        {link.isResume && (
-          <span
-            className="text-[9px] font-mono tracking-widest uppercase transition-colors duration-300"
-            style={{ color: hovered ? 'rgba(74,222,128,0.5)' : 'var(--color-text-whisper)' }}
-          >
+        {link.isResume ? (
+          <span className="text-[9px] font-mono tracking-widest uppercase ml-1 text-text-faint transition-colors duration-200 group-hover:text-[rgba(var(--_accent),0.6)]">
             PDF
           </span>
-        )}
-        {!link.isResume && (
-          <span
-            className="text-[11px] inline-block transition-all duration-300"
-            style={{
-              color: hovered ? 'var(--color-accent-light-faint)' : 'var(--color-text-faint)',
-              transform: hovered ? 'translateX(2px)' : 'none',
-            }}
-          >
+        ) : (
+          <span className="text-xs text-text-faint transition-all duration-200 group-hover:text-[rgba(var(--_accent),0.5)] group-hover:translate-x-0.5">
             →
           </span>
         )}
