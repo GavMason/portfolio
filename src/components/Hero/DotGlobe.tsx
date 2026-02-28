@@ -67,6 +67,8 @@ export function DotGlobe({ visible }: DotGlobeProps) {
         )
         dots.setColorAt(i, color)
       }
+      dots.instanceMatrix.needsUpdate = true
+      dots.instanceColor!.needsUpdate = true
       globe.add(dots)
 
       // Wireframe grid lines
