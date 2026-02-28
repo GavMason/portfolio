@@ -16,84 +16,161 @@ export interface CatColor {
 // Tier 1 = most used / largest node. Tier 5 = least / smallest.
 const TIER_R: Record<number, number> = { 1: 6, 2: 5, 3: 4, 4: 3.2, 5: 2.6 }
 
-const RAW_SKILLS = [
-  // Languages (cat 0) - top-left cluster
-  { name: 'Python', x: 15, y: 14, cat: 0, tier: 1 },
-  { name: 'TypeScript', x: 30, y: 10, cat: 0, tier: 2 },
-  { name: 'JavaScript', x: 9, y: 26, cat: 0, tier: 2 },
-  { name: 'Bash', x: 33, y: 24, cat: 0, tier: 4 },
-  { name: 'SQL', x: 21, y: 34, cat: 0, tier: 4 },
-  { name: 'HTML/CSS', x: 39, y: 36, cat: 0, tier: 4 },
-  { name: 'Java', x: 6, y: 40, cat: 0, tier: 5 },
-  { name: 'C', x: 42, y: 16, cat: 0, tier: 5 },
-  { name: 'Ruby', x: 24, y: 46, cat: 0, tier: 5 },
-  { name: 'YAML', x: 45, y: 28, cat: 0, tier: 5 },
-  { name: 'Markdown', x: 12, y: 48, cat: 0, tier: 5 },
-  // Frameworks (cat 1) - top-center cluster
-  { name: 'React', x: 60, y: 10, cat: 1, tier: 3 },
-  { name: 'Vue 3', x: 75, y: 8, cat: 1, tier: 3 },
-  { name: 'Next.js', x: 57, y: 22, cat: 1, tier: 3 },
-  { name: 'Nuxt 3', x: 78, y: 20, cat: 1, tier: 3 },
-  { name: 'Node.js', x: 84, y: 12, cat: 1, tier: 3 },
-  { name: 'FastAPI', x: 63, y: 34, cat: 1, tier: 3 },
-  { name: 'Flask', x: 81, y: 32, cat: 1, tier: 4 },
-  { name: 'Django', x: 57, y: 44, cat: 1, tier: 4 },
-  { name: 'Express', x: 72, y: 42, cat: 1, tier: 4 },
-  { name: 'Tailwind', x: 87, y: 40, cat: 1, tier: 4 },
-  { name: 'Vite', x: 90, y: 26, cat: 1, tier: 5 },
-  { name: 'Spring Boot', x: 69, y: 50, cat: 1, tier: 5 },
-  // Cloud & Infra (cat 2) - top-right cluster
-  { name: 'Docker', x: 108, y: 16, cat: 2, tier: 2 },
-  { name: 'AWS', x: 120, y: 10, cat: 2, tier: 3 },
-  { name: 'Kubernetes', x: 129, y: 22, cat: 2, tier: 3 },
-  { name: 'Linux', x: 138, y: 12, cat: 2, tier: 3 },
-  { name: 'Lambda', x: 105, y: 28, cat: 2, tier: 4 },
-  { name: 'Bedrock', x: 117, y: 24, cat: 2, tier: 4 },
-  { name: 'ECS/EKS', x: 135, y: 32, cat: 2, tier: 4 },
-  { name: 'Terraform', x: 123, y: 36, cat: 2, tier: 4 },
-  { name: 'Cloudflare', x: 111, y: 38, cat: 2, tier: 4 },
-  { name: 'Nginx', x: 99, y: 36, cat: 2, tier: 5 },
-  { name: 'S3', x: 141, y: 24, cat: 2, tier: 5 },
-  { name: 'Vercel', x: 132, y: 42, cat: 2, tier: 5 },
-  // ML / AI (cat 3) - bottom-left cluster
-  { name: 'PyTorch', x: 21, y: 60, cat: 3, tier: 3 },
-  { name: 'LangChain', x: 39, y: 58, cat: 3, tier: 3 },
-  { name: 'OpenAI API', x: 54, y: 56, cat: 3, tier: 3 },
-  { name: 'scikit-learn', x: 9, y: 68, cat: 3, tier: 4 },
-  { name: 'Hugging Face', x: 33, y: 70, cat: 3, tier: 4 },
-  { name: 'RAG Pipelines', x: 51, y: 68, cat: 3, tier: 4 },
-  { name: 'Pandas/NumPy', x: 15, y: 78, cat: 3, tier: 4 },
-  { name: 'ChromaDB', x: 42, y: 78, cat: 3, tier: 5 },
-  { name: 'MLflow', x: 27, y: 82, cat: 3, tier: 5 },
-  { name: 'Jupyter', x: 6, y: 58, cat: 3, tier: 5 },
-  { name: 'Matplotlib', x: 57, y: 80, cat: 3, tier: 5 },
-  // Security (cat 4) - bottom-center cluster
-  { name: 'MITRE ATLAS', x: 78, y: 58, cat: 4, tier: 4 },
-  { name: 'Threat Detection', x: 93, y: 56, cat: 4, tier: 4 },
-  { name: 'Log Analysis', x: 84, y: 68, cat: 4, tier: 4 },
-  { name: 'Vuln Scanning', x: 99, y: 66, cat: 4, tier: 4 },
-  { name: 'SIEM/ELK', x: 75, y: 76, cat: 4, tier: 4 },
-  { name: 'Wireshark', x: 90, y: 78, cat: 4, tier: 5 },
-  { name: 'Nmap', x: 72, y: 66, cat: 4, tier: 5 },
-  { name: 'InSpec/SAF', x: 105, y: 76, cat: 4, tier: 5 },
-  // DevOps (cat 5) - bottom-right cluster
-  { name: 'Git', x: 123, y: 54, cat: 5, tier: 2 },
-  { name: 'CI/CD', x: 138, y: 52, cat: 5, tier: 3 },
-  { name: 'GitHub Actions', x: 132, y: 62, cat: 5, tier: 3 },
-  { name: 'Grafana', x: 117, y: 64, cat: 5, tier: 3 },
-  { name: 'REST APIs', x: 129, y: 72, cat: 5, tier: 3 },
-  { name: 'Prometheus', x: 141, y: 64, cat: 5, tier: 4 },
-  { name: 'Ansible', x: 120, y: 76, cat: 5, tier: 4 },
-  { name: 'GraphQL', x: 138, y: 76, cat: 5, tier: 4 },
-  { name: 'ArgoCD', x: 144, y: 70, cat: 5, tier: 5 },
-  { name: 'Kong', x: 114, y: 84, cat: 5, tier: 5 },
-  { name: 'WebSockets', x: 132, y: 84, cat: 5, tier: 5 },
+// Cluster centers for 2×3 grid layout
+const CLUSTER_CENTERS: [number, number][] = [
+  [25, 28],  // cat 0: Languages (top-left)
+  [75, 28],  // cat 1: Frameworks (top-center)
+  [125, 26], // cat 2: Cloud & Infra (top-right)
+  [30, 68],  // cat 3: ML / AI (bottom-left)
+  [88, 68],  // cat 4: Security (bottom-center)
+  [130, 68], // cat 5: DevOps (bottom-right)
 ]
 
-export const SKILLS_DATA: Skill[] = RAW_SKILLS.map((s) => ({
-  ...s,
-  r: TIER_R[s.tier] ?? 2.8,
-}))
+const RAW_SKILLS = [
+  // Languages (cat 0)
+  { name: 'Python', cat: 0, tier: 1 },
+  { name: 'TypeScript', cat: 0, tier: 2 },
+  { name: 'JavaScript', cat: 0, tier: 2 },
+  { name: 'Bash', cat: 0, tier: 4 },
+  { name: 'SQL', cat: 0, tier: 4 },
+  { name: 'HTML/CSS', cat: 0, tier: 4 },
+  { name: 'Java', cat: 0, tier: 5 },
+  { name: 'C', cat: 0, tier: 5 },
+  { name: 'Ruby', cat: 0, tier: 5 },
+  { name: 'YAML', cat: 0, tier: 5 },
+  { name: 'Markdown', cat: 0, tier: 5 },
+  // Frameworks (cat 1)
+  { name: 'React', cat: 1, tier: 3 },
+  { name: 'Vue 3', cat: 1, tier: 3 },
+  { name: 'Next.js', cat: 1, tier: 3 },
+  { name: 'Nuxt 3', cat: 1, tier: 3 },
+  { name: 'Node.js', cat: 1, tier: 3 },
+  { name: 'FastAPI', cat: 1, tier: 3 },
+  { name: 'Flask', cat: 1, tier: 4 },
+  { name: 'Django', cat: 1, tier: 4 },
+  { name: 'Express', cat: 1, tier: 4 },
+  { name: 'Tailwind', cat: 1, tier: 4 },
+  { name: 'Vite', cat: 1, tier: 5 },
+  { name: 'Spring Boot', cat: 1, tier: 5 },
+  // Cloud & Infra (cat 2)
+  { name: 'Docker', cat: 2, tier: 2 },
+  { name: 'AWS', cat: 2, tier: 3 },
+  { name: 'Kubernetes', cat: 2, tier: 3 },
+  { name: 'Linux', cat: 2, tier: 3 },
+  { name: 'Lambda', cat: 2, tier: 4 },
+  { name: 'Bedrock', cat: 2, tier: 4 },
+  { name: 'ECS/EKS', cat: 2, tier: 4 },
+  { name: 'Terraform', cat: 2, tier: 4 },
+  { name: 'Cloudflare', cat: 2, tier: 4 },
+  { name: 'Nginx', cat: 2, tier: 5 },
+  { name: 'S3', cat: 2, tier: 5 },
+  { name: 'Vercel', cat: 2, tier: 5 },
+  // ML / AI (cat 3)
+  { name: 'PyTorch', cat: 3, tier: 3 },
+  { name: 'LangChain', cat: 3, tier: 3 },
+  { name: 'OpenAI API', cat: 3, tier: 3 },
+  { name: 'scikit-learn', cat: 3, tier: 4 },
+  { name: 'Hugging Face', cat: 3, tier: 4 },
+  { name: 'RAG Pipelines', cat: 3, tier: 4 },
+  { name: 'Pandas/NumPy', cat: 3, tier: 4 },
+  { name: 'ChromaDB', cat: 3, tier: 5 },
+  { name: 'MLflow', cat: 3, tier: 5 },
+  { name: 'Jupyter', cat: 3, tier: 5 },
+  { name: 'Matplotlib', cat: 3, tier: 5 },
+  // Security (cat 4)
+  { name: 'MITRE ATLAS', cat: 4, tier: 4 },
+  { name: 'Threat Detection', cat: 4, tier: 4 },
+  { name: 'Log Analysis', cat: 4, tier: 4 },
+  { name: 'Vuln Scanning', cat: 4, tier: 4 },
+  { name: 'SIEM/ELK', cat: 4, tier: 4 },
+  { name: 'Wireshark', cat: 4, tier: 5 },
+  { name: 'Nmap', cat: 4, tier: 5 },
+  { name: 'InSpec/SAF', cat: 4, tier: 5 },
+  // DevOps (cat 5)
+  { name: 'Git', cat: 5, tier: 2 },
+  { name: 'CI/CD', cat: 5, tier: 3 },
+  { name: 'GitHub Actions', cat: 5, tier: 3 },
+  { name: 'Grafana', cat: 5, tier: 3 },
+  { name: 'REST APIs', cat: 5, tier: 3 },
+  { name: 'Prometheus', cat: 5, tier: 4 },
+  { name: 'Ansible', cat: 5, tier: 4 },
+  { name: 'GraphQL', cat: 5, tier: 4 },
+  { name: 'ArgoCD', cat: 5, tier: 5 },
+  { name: 'Kong', cat: 5, tier: 5 },
+  { name: 'WebSockets', cat: 5, tier: 5 },
+]
+
+// Compute positions using a spiral distribution around each cluster center
+function computePositions(
+  skills: typeof RAW_SKILLS,
+): Skill[] {
+  // Group by category, sort by tier within each group
+  const groups = new Map<number, typeof RAW_SKILLS>()
+  for (const s of skills) {
+    if (!groups.has(s.cat)) groups.set(s.cat, [])
+    groups.get(s.cat)!.push(s)
+  }
+  for (const group of groups.values()) {
+    group.sort((a, b) => a.tier - b.tier)
+  }
+
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5))
+  const result: Skill[] = []
+
+  for (const s of skills) {
+    const group = groups.get(s.cat)!
+    const idx = group.indexOf(s)
+    const [cx, cy] = CLUSTER_CENTERS[s.cat]
+
+    // First node sits at center, rest spiral out
+    let x = cx
+    let y = cy
+    if (idx > 0) {
+      const angle = idx * goldenAngle
+      const dist = 7 + Math.sqrt(idx) * 8
+      x = cx + Math.cos(angle) * dist
+      y = cy + Math.sin(angle) * dist
+    }
+
+    result.push({
+      name: s.name,
+      x,
+      y,
+      cat: s.cat,
+      tier: s.tier,
+      r: TIER_R[s.tier] ?? 2.8,
+    })
+  }
+
+  // Collision resolution - push overlapping nodes apart
+  const minGap = 6
+  for (let pass = 0; pass < 50; pass++) {
+    let moved = false
+    for (let i = 0; i < result.length; i++) {
+      for (let j = i + 1; j < result.length; j++) {
+        const dx = result[j].x - result[i].x
+        const dy = result[j].y - result[i].y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        const minDist = result[i].r + result[j].r + minGap
+        if (dist < minDist && dist > 0) {
+          const overlap = (minDist - dist) / 2
+          const nx = dx / dist
+          const ny = dy / dist
+          result[i].x -= nx * overlap
+          result[i].y -= ny * overlap
+          result[j].x += nx * overlap
+          result[j].y += ny * overlap
+          moved = true
+        }
+      }
+    }
+    if (!moved) break
+  }
+
+  return result
+}
+
+export const SKILLS_DATA: Skill[] = computePositions(RAW_SKILLS)
 
 export const CAT_COLORS: CatColor[] = [
   { fill: 'rgba(196,181,253,0.9)', bg: 'rgba(196,181,253,0.08)', glow: '196,181,253' },

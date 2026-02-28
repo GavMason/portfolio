@@ -24,7 +24,7 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
   const rafRef = useRef<number>(0)
   const cloneContainerRef = useRef<HTMLDivElement | null>(null)
 
-  // Tear down DOM side effects — stable ref since it only touches refs
+  // Tear down DOM side effects - stable ref since it only touches refs
   const teardown = useCallback(() => {
     cancelAnimationFrame(rafRef.current)
 
@@ -46,7 +46,7 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
 
   useEffect(() => {
     if (!show) {
-      // Clean up DOM only — state resets naturally on unmount
+      // Clean up DOM only - state resets naturally on unmount
       teardown()
       return
     }
@@ -129,7 +129,7 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
       mainContent.dataset.gravityPrevBg = mainContent.style.background || ''
     }
 
-    // Physics loop — gravity, bounce, and wall collision
+    // Physics loop - gravity, bounce, and wall collision
     const gravity = 0.4
     const bounce = 0.4
     const friction = 0.99

@@ -8,6 +8,7 @@ export function ConstellationGraph() {
   const ref = useRef(null)
   const visible = useInView(ref, { once: true, amount: 0.1 })
   const [activeCat, setActiveCat] = useState<number | null>(null)
+  const [hoveredCatBtn, setHoveredCatBtn] = useState<number | null>(null)
 
   // Resolve which category to highlight - hover takes priority
   const hoveredCat = hovered !== null ? SKILLS_DATA[hovered]?.cat : null
@@ -40,7 +41,6 @@ export function ConstellationGraph() {
             const b = SKILLS_DATA[j]
             const active = hovered !== null && (hovered === i || hovered === j)
             const bothCat = effectiveCat !== null && a.cat === effectiveCat
-            const dim = effectiveCat !== null && a.cat !== effectiveCat
 
             return (
               <line
@@ -54,9 +54,7 @@ export function ConstellationGraph() {
                     ? CAT_COLORS[a.cat].fill
                     : bothCat
                     ? `rgba(${CAT_COLORS[a.cat].glow},0.2)`
-                    : dim
-                    ? 'rgba(255,255,255,0.01)'
-                    : 'rgba(255,255,255,0.04)'
+                    : 'rgba(255,255,255,0)'
                 }
                 strokeWidth={active ? 0.4 : 0.18}
                 style={{ transition: 'all 0.5s cubic-bezier(.4,0,.2,1)' }}
@@ -154,24 +152,37 @@ export function ConstellationGraph() {
             <button
               key={i}
               onClick={() => setActiveCat((prev) => (prev === i ? null : i))}
+              onMouseEnter={() => setHoveredCatBtn(i)}
+              onMouseLeave={() => setHoveredCatBtn(null)}
               className="flex items-center gap-2 rounded-full px-3.5 py-1.5 outline-none cursor-pointer transition-all duration-400"
               style={{
-                background: isActive ? `rgba(${CAT_COLORS[i].glow},0.08)` : 'transparent',
-                border: isActive ? `1px solid rgba(${CAT_COLORS[i].glow},0.15)` : '1px solid transparent',
-                opacity: isDim ? 0.25 : isActive ? 1 : 0.6,
+                background: isActive
+                  ? `rgba(${CAT_COLORS[i].glow},0.08)`
+                  : hoveredCatBtn === i
+                  ? `rgba(${CAT_COLORS[i].glow},0.05)`
+                  : 'transparent',
+                border: isActive
+                  ? `1px solid rgba(${CAT_COLORS[i].glow},0.15)`
+                  : hoveredCatBtn === i
+                  ? `1px solid rgba(${CAT_COLORS[i].glow},0.1)`
+                  : '1px solid transparent',
+                opacity: isDim ? 0.25 : isActive ? 1 : hoveredCatBtn === i ? 0.9 : 0.6,
+                transform: hoveredCatBtn === i && !isActive ? 'translateY(-1px)' : 'none',
               }}
             >
               <div
-                className="w-1.75 h-1.75 rounded-full"
+                className="w-1.75 h-1.75 rounded-full transition-all duration-300"
                 style={{
                   background: CAT_COLORS[i].fill,
-                  boxShadow: isActive ? `0 0 6px rgba(${CAT_COLORS[i].glow},0.4)` : 'none',
+                  boxShadow: isActive || hoveredCatBtn === i
+                    ? `0 0 6px rgba(${CAT_COLORS[i].glow},0.4)`
+                    : 'none',
                 }}
               />
               <span
-                className="text-[11px]"
+                className="text-[11px] transition-colors duration-300"
                 style={{
-                  color: isActive ? CAT_COLORS[i].fill : 'var(--color-text-body)',
+                  color: isActive || hoveredCatBtn === i ? CAT_COLORS[i].fill : 'var(--color-text-body)',
                   fontWeight: isActive ? 600 : 400,
                 }}
               >

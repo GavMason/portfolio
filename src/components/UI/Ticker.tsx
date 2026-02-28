@@ -18,7 +18,7 @@ export function Ticker() {
       onMouseLeave={() => setPaused(false)}
       className="relative z-3 overflow-hidden py-4 border-y border-border bg-[rgba(255,255,255,0.01)]"
     >
-      {/* Two identical halves — animation scrolls first half offscreen, then
+      {/* Two identical halves - animation scrolls first half offscreen, then
           resets to 0 which looks identical, creating a seamless loop. */}
       <div
         className="flex gap-16 whitespace-nowrap"
