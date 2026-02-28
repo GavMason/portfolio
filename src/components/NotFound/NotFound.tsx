@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { TopoLines } from '../Effects/TopoLines'
+import { ErrorBoundary } from '../UI/ErrorBoundary'
 
 const DotGlobe = lazy(() => import('../Hero/DotGlobe').then((m) => ({ default: m.DotGlobe })))
 
@@ -10,9 +11,11 @@ export function NotFound() {
 
       {/* Globe behind the text */}
       <div className="absolute w-[min(90vw,700px)] h-[min(90vw,700px)] opacity-30">
-        <Suspense fallback={null}>
-          <DotGlobe visible instant />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <DotGlobe visible instant />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       {/* Content */}
