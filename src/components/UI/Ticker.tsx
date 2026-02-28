@@ -3,8 +3,12 @@ import { STATS } from '../../data/stats'
 
 const BLOCK = STATS.map((s, i) => (
   <span key={i} className="inline-flex items-center gap-3">
-    <span className="text-base font-black text-text-primary font-mono">{s.value}</span>
-    <span className="text-xs tracking-widest uppercase text-text-dim">{s.label}</span>
+    <span className="text-base font-black text-text-primary font-mono">
+      {s.value}
+    </span>
+    <span className="text-xs tracking-widest uppercase text-text-dim">
+      {s.label}
+    </span>
     <span className="mx-2 text-accent-subtle">✦</span>
   </span>
 ))
@@ -29,7 +33,9 @@ export function Ticker() {
         }}
       >
         <div className="flex gap-16 shrink-0">{BLOCK}</div>
-        <div className="flex gap-16 shrink-0" aria-hidden>{BLOCK}</div>
+        <div className="flex gap-16 shrink-0" aria-hidden>
+          {BLOCK}
+        </div>
       </div>
     </div>
   )

@@ -1,6 +1,11 @@
 import { useState, useRef } from 'react'
 import { useInView } from 'framer-motion'
-import { SKILLS_DATA, CAT_COLORS, CAT_LABELS, CONNECTIONS } from '../../data/skills'
+import {
+  SKILLS_DATA,
+  CAT_COLORS,
+  CAT_LABELS,
+  CONNECTIONS,
+} from '../../data/skills'
 import { SkillTooltip } from './SkillTooltip'
 
 export function ConstellationGraph() {
@@ -53,8 +58,8 @@ export function ConstellationGraph() {
                   active
                     ? CAT_COLORS[a.cat].fill
                     : bothCat
-                    ? `rgba(${CAT_COLORS[a.cat].glow},0.2)`
-                    : 'rgba(255,255,255,0)'
+                      ? `rgba(${CAT_COLORS[a.cat].glow},0.2)`
+                      : 'rgba(255,255,255,0)'
                 }
                 strokeWidth={active ? 0.4 : 0.18}
                 style={{ transition: 'all 0.5s cubic-bezier(.4,0,.2,1)' }}
@@ -102,17 +107,22 @@ export function ConstellationGraph() {
                     isH
                       ? col.fill
                       : isCat
-                      ? `rgba(${col.glow},0.4)`
-                      : dim
-                      ? 'rgba(255,255,255,0.03)'
-                      : 'rgba(255,255,255,0.07)'
+                        ? `rgba(${col.glow},0.4)`
+                        : dim
+                          ? 'rgba(255,255,255,0.03)'
+                          : 'rgba(255,255,255,0.07)'
                   }
                   filter={isH ? `url(#glow${s.cat})` : 'none'}
                   style={{ transition: 'all 0.4s cubic-bezier(.4,0,.2,1)' }}
                 />
                 {/* Center highlight on hover */}
                 {isH && (
-                  <circle cx={s.x} cy={s.y} r={nodeR * 0.3} fill="rgba(255,255,255,0.6)" />
+                  <circle
+                    cx={s.x}
+                    cy={s.y}
+                    r={nodeR * 0.3}
+                    fill="rgba(255,255,255,0.6)"
+                  />
                 )}
                 {/* Label */}
                 <text
@@ -124,10 +134,10 @@ export function ConstellationGraph() {
                     isH
                       ? col.fill
                       : isCat
-                      ? `rgba(${col.glow},0.7)`
-                      : dim
-                      ? 'rgba(255,255,255,0)'
-                      : 'rgba(255,255,255,0.15)'
+                        ? `rgba(${col.glow},0.7)`
+                        : dim
+                          ? 'rgba(255,255,255,0)'
+                          : 'rgba(255,255,255,0.15)'
                   }
                   fontFamily="'Satoshi', sans-serif"
                   fontWeight={isH ? '700' : isCat ? '500' : '400'}
@@ -141,10 +151,18 @@ export function ConstellationGraph() {
         </svg>
 
         {/* Tooltip */}
-        {hovered !== null && (() => {
-          const s = SKILLS_DATA[hovered]
-          return <SkillTooltip skill={s} x={(s.x / 150) * 100} y={(s.y / 96) * 100} color={CAT_COLORS[s.cat]} />
-        })()}
+        {hovered !== null &&
+          (() => {
+            const s = SKILLS_DATA[hovered]
+            return (
+              <SkillTooltip
+                skill={s}
+                x={(s.x / 150) * 100}
+                y={(s.y / 96) * 100}
+                color={CAT_COLORS[s.cat]}
+              />
+            )
+          })()}
       </div>
 
       {/* Category filter */}
@@ -166,30 +184,43 @@ export function ConstellationGraph() {
                 background: isActive
                   ? `rgba(${CAT_COLORS[i].glow},0.08)`
                   : hoveredCatBtn === i
-                  ? `rgba(${CAT_COLORS[i].glow},0.05)`
-                  : 'transparent',
+                    ? `rgba(${CAT_COLORS[i].glow},0.05)`
+                    : 'transparent',
                 border: isActive
                   ? `1px solid rgba(${CAT_COLORS[i].glow},0.15)`
                   : hoveredCatBtn === i
-                  ? `1px solid rgba(${CAT_COLORS[i].glow},0.1)`
-                  : '1px solid transparent',
-                opacity: isDim ? 0.25 : isActive ? 1 : hoveredCatBtn === i ? 0.9 : 0.6,
-                transform: hoveredCatBtn === i && !isActive ? 'translateY(-1px)' : 'none',
+                    ? `1px solid rgba(${CAT_COLORS[i].glow},0.1)`
+                    : '1px solid transparent',
+                opacity: isDim
+                  ? 0.25
+                  : isActive
+                    ? 1
+                    : hoveredCatBtn === i
+                      ? 0.9
+                      : 0.6,
+                transform:
+                  hoveredCatBtn === i && !isActive
+                    ? 'translateY(-1px)'
+                    : 'none',
               }}
             >
               <div
                 className="w-1.75 h-1.75 rounded-full transition-all duration-300"
                 style={{
                   background: CAT_COLORS[i].fill,
-                  boxShadow: isActive || hoveredCatBtn === i
-                    ? `0 0 6px rgba(${CAT_COLORS[i].glow},0.4)`
-                    : 'none',
+                  boxShadow:
+                    isActive || hoveredCatBtn === i
+                      ? `0 0 6px rgba(${CAT_COLORS[i].glow},0.4)`
+                      : 'none',
                 }}
               />
               <span
                 className="text-[11px] transition-colors duration-300"
                 style={{
-                  color: isActive || hoveredCatBtn === i ? CAT_COLORS[i].fill : 'var(--color-text-body)',
+                  color:
+                    isActive || hoveredCatBtn === i
+                      ? CAT_COLORS[i].fill
+                      : 'var(--color-text-body)',
                   fontWeight: isActive ? 600 : 400,
                 }}
               >

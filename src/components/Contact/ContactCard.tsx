@@ -21,12 +21,14 @@ export function ContactCard({ link, delay = 0 }: ContactCardProps) {
           bg-surface border border-border transition-all duration-300
           hover:bg-[rgba(var(--_accent),0.08)] hover:border-[rgba(var(--_accent),0.2)]
           hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(var(--_accent),0.1)]"
-        style={{
-          '--_accent': accent,
-          opacity: visible ? 1 : 0,
-          transform: visible ? undefined : 'translateY(20px)',
-          transitionDelay: visible ? '0ms' : `${delay}ms`,
-        } as CSSProperties}
+        style={
+          {
+            '--_accent': accent,
+            opacity: visible ? 1 : 0,
+            transform: visible ? undefined : 'translateY(20px)',
+            transitionDelay: visible ? '0ms' : `${delay}ms`,
+          } as CSSProperties
+        }
       >
         <span className="text-text-muted transition-colors duration-200 group-hover:text-[rgba(var(--_accent),0.9)]">
           {link.icon}

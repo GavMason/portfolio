@@ -4,9 +4,7 @@ export function Footer() {
       <span className="text-xs text-text-whisper">
         Built by Gav • {new Date().getFullYear()}
       </span>
-      <span className="text-[11px] font-mono text-text-ghost">
-        ⌘K
-      </span>
+      <span className="text-[11px] font-mono text-text-ghost">⌘K</span>
     </footer>
   )
 }

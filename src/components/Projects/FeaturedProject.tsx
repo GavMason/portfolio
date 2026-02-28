@@ -14,7 +14,14 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
 
   return (
     <Wrapper
-      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${project.title} (opens in new tab)` } : {})}
+      {...(project.link
+        ? {
+            href: project.link,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            'aria-label': `${project.title} (opens in new tab)`,
+          }
+        : {})}
       {...hoverHandlers}
       className="relative rounded-3xl mb-5 p-px cursor-pointer block no-underline"
     >
@@ -32,10 +39,14 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
       <div
         className="rounded-3xl overflow-hidden grid grid-cols-2 relative transition-all duration-500"
         style={{
-          background: hovered ? 'var(--color-surface-card)' : 'rgba(7,7,13,0.95)',
+          background: hovered
+            ? 'var(--color-surface-card)'
+            : 'rgba(7,7,13,0.95)',
           border: `1px solid ${hovered ? `rgba(${project.accent},0.15)` : 'var(--color-border)'}`,
           transform: hovered ? 'translateY(-4px)' : 'none',
-          boxShadow: hovered ? `0 24px 60px rgba(${project.accent},0.1)` : 'none',
+          boxShadow: hovered
+            ? `0 24px 60px rgba(${project.accent},0.1)`
+            : 'none',
         }}
       >
         {/* Preview */}
@@ -63,11 +74,15 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
         {/* Content */}
         <div className="p-10 flex flex-col justify-center">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-2xl font-bold text-text-primary">{project.title}</h3>
+            <h3 className="text-2xl font-bold text-text-primary">
+              {project.title}
+            </h3>
             <span
               className="text-base inline-block transition-all duration-300"
               style={{
-                color: hovered ? `rgba(${project.accent},0.6)` : 'var(--color-text-ghost)',
+                color: hovered
+                  ? `rgba(${project.accent},0.6)`
+                  : 'var(--color-text-ghost)',
                 transform: hovered ? 'translateX(3px)' : 'none',
               }}
             >

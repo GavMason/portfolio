@@ -8,7 +8,12 @@ export function Projects() {
   return (
     <section id="projects" className="relative z-3 pt-25 pb-40 px-5 md:px-10">
       <div className="max-w-250 mx-auto">
-        <SectionHeader number="02" title="Projects" subtitle="Things I'm building on my own time." sectionId="projects" />
+        <SectionHeader
+          number="02"
+          title="Projects"
+          subtitle="Things I'm building on my own time."
+          sectionId="projects"
+        />
 
         {/* Featured project */}
         <Reveal delay={100}>

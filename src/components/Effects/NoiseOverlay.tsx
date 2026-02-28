@@ -18,10 +18,10 @@ export function NoiseOverlay() {
     const imageData = ctx.createImageData(512, 512)
     for (let i = 0; i < imageData.data.length; i += 4) {
       const v = Math.random() * 255
-      imageData.data[i] = v       // R
-      imageData.data[i + 1] = v   // G
-      imageData.data[i + 2] = v   // B
-      imageData.data[i + 3] = 8   // Alpha - very low for subtle grain texture
+      imageData.data[i] = v // R
+      imageData.data[i + 1] = v // G
+      imageData.data[i + 2] = v // B
+      imageData.data[i + 3] = 8 // Alpha - very low for subtle grain texture
     }
     ctx.putImageData(imageData, 0, 0)
   }, [])

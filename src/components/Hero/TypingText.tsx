@@ -7,9 +7,16 @@ interface TypingTextProps {
   delay?: number
 }
 
-const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const prefersStatic = window.matchMedia(
+  '(prefers-reduced-motion: reduce)',
+).matches
 
-export function TypingText({ text, trigger, speed = 22, delay = 0 }: TypingTextProps) {
+export function TypingText({
+  text,
+  trigger,
+  speed = 22,
+  delay = 0,
+}: TypingTextProps) {
   const [displayed, setDisplayed] = useState('')
   const [started, setStarted] = useState(false)
   const [showCursor, setShowCursor] = useState(true)

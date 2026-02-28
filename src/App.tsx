@@ -40,10 +40,11 @@ function App() {
   useEffect(() => {
     const ids = NAV.map((n) => n.href.slice(1))
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) setActive(e.target.id)
-      }),
-      { threshold: 0.2 }
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id)
+        }),
+      { threshold: 0.2 },
     )
 
     ids.forEach((id) => {
@@ -83,13 +84,22 @@ function App() {
           <CommandPalette
             open={cmdOpen}
             onClose={() => setCmdOpen(false)}
-            onTriggerDvd={() => { setCmdOpen(false); setDvdMode(true) }}
-            onTriggerGravity={() => { setCmdOpen(false); setGravityMode(true) }}
+            onTriggerDvd={() => {
+              setCmdOpen(false)
+              setDvdMode(true)
+            }}
+            onTriggerGravity={() => {
+              setCmdOpen(false)
+              setGravityMode(true)
+            }}
           />
           <BackToTop />
           <CmdKHint
             dismissed={cmdUsed}
-            onClick={() => { setCmdOpen(true); setCmdUsed(true) }}
+            onClick={() => {
+              setCmdOpen(true)
+              setCmdUsed(true)
+            }}
           />
         </>
       )}

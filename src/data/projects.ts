@@ -12,7 +12,8 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     title: 'Maikona',
-    description: 'A platform currently taking shape. Details coming as it develops - stay tuned.',
+    description:
+      'A platform currently taking shape. Details coming as it develops - stay tuned.',
     tags: ['In Progress'],
     status: 'active',
     accent: '139,92,246',
@@ -22,7 +23,8 @@ export const PROJECTS: Project[] = [
   },
   {
     title: 'Homelab Observation Stack',
-    description: 'A simple, deployable observability stack for homelabs. Built it because I needed it, now sharing it.',
+    description:
+      'A simple, deployable observability stack for homelabs. Built it because I needed it, now sharing it.',
     tags: ['Docker', 'Monitoring', 'Infrastructure'],
     status: 'active',
     accent: '59,130,246',
@@ -32,7 +34,8 @@ export const PROJECTS: Project[] = [
   },
   {
     title: 'MCP Server',
-    description: 'Building a Model Context Protocol server to extend what AI assistants can do.',
+    description:
+      'Building a Model Context Protocol server to extend what AI assistants can do.',
     tags: ['MCP', 'AI', 'Server'],
     status: 'coming-soon',
     accent: '236,72,153',

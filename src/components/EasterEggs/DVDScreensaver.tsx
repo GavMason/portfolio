@@ -5,7 +5,15 @@ interface DVDScreensaverProps {
   onClose: () => void
 }
 
-const COLORS = ['#c4b5fd', '#818cf8', '#60a5fa', '#ec4899', '#4ade80', '#fbbf24', '#f87171']
+const COLORS = [
+  '#c4b5fd',
+  '#818cf8',
+  '#60a5fa',
+  '#ec4899',
+  '#4ade80',
+  '#fbbf24',
+  '#f87171',
+]
 
 export function DVDScreensaver({ show, onClose }: DVDScreensaverProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -140,13 +148,13 @@ export function DVDScreensaver({ show, onClose }: DVDScreensaverProps) {
         {/* Corner hit celebration */}
         {cornerHits > 0 && (
           <div className="text-xs font-mono text-accent-light animate-pulse">
-            {cornerHits === 1 ? 'THE IMPOSSIBLE HAPPENED' : `${cornerHits}x CORNER HIT COMBO`}
+            {cornerHits === 1
+              ? 'THE IMPOSSIBLE HAPPENED'
+              : `${cornerHits}x CORNER HIT COMBO`}
           </div>
         )}
         {/* Dismiss hint */}
-        <div className="text-[11px] text-text-dim">
-          click anywhere to close
-        </div>
+        <div className="text-[11px] text-text-dim">click anywhere to close</div>
       </div>
     </div>
   )

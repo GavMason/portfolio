@@ -3,11 +3,15 @@ import { TypingText } from './TypingText'
 import { CTAButton } from '../UI/CTAButton'
 import { ErrorBoundary } from '../UI/ErrorBoundary'
 
-const DotGlobe = lazy(() => import('./DotGlobe').then((m) => ({ default: m.DotGlobe })))
+const DotGlobe = lazy(() =>
+  import('./DotGlobe').then((m) => ({ default: m.DotGlobe })),
+)
 import { TopoLines } from '../Effects/TopoLines'
 import { HERO_BIO, getGreeting } from '../../data/constants'
 
-const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const prefersStatic = window.matchMedia(
+  '(prefers-reduced-motion: reduce)',
+).matches
 
 interface HeroProps {
   loaded: boolean
@@ -72,14 +76,21 @@ export function Hero({ loaded }: HeroProps) {
             <span className="text-accent-muted">.</span>
           </h1>
           <p className="leading-relaxed max-w-115 mb-10 text-[clamp(14px,1.6vw,16px)] text-text-mid">
-            <TypingText text={HERO_BIO} trigger={phase >= 2} speed={18} delay={400} />
+            <TypingText
+              text={HERO_BIO}
+              trigger={phase >= 2}
+              speed={18}
+              delay={400}
+            />
           </p>
         </div>
 
         {/* CTAs */}
         <div style={fadeIn(3)}>
           <div className="flex gap-3.5 items-center flex-wrap">
-            <CTAButton href="#projects" primary>See my work</CTAButton>
+            <CTAButton href="#projects" primary>
+              See my work
+            </CTAButton>
             <CTAButton href="#contact">Say hello</CTAButton>
             <span className="text-[11px] ml-2 font-mono text-text-faint">
               press{' '}
@@ -116,7 +127,10 @@ export function Hero({ loaded }: HeroProps) {
       >
         <div
           className="w-px h-10"
-          style={{ background: 'linear-gradient(to bottom, var(--color-accent-muted), transparent)' }}
+          style={{
+            background:
+              'linear-gradient(to bottom, var(--color-accent-muted), transparent)',
+          }}
         />
       </div>
     </section>

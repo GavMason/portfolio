@@ -23,19 +23,28 @@ export function Navbar({ active }: NavbarProps) {
         padding: scrolled ? '14px 40px' : '20px 40px',
         background: scrolled ? 'rgba(7,7,13,0.92)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
-        transition: 'padding 0.2s ease, background 0.2s ease, border-bottom 0.2s ease',
+        borderBottom: scrolled
+          ? '1px solid var(--color-border)'
+          : '1px solid transparent',
+        transition:
+          'padding 0.2s ease, background 0.2s ease, border-bottom 0.2s ease',
       }}
     >
       {/* Logo */}
       <a
         href="#"
-        onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); history.replaceState(null, '', ' ') }}
+        onClick={(e) => {
+          e.preventDefault()
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+          history.replaceState(null, '', ' ')
+        }}
         onMouseEnter={() => setLogoHovered(true)}
         onMouseLeave={() => setLogoHovered(false)}
         className="text-xl font-black no-underline inline-block transition-all duration-300"
         style={{
-          color: logoHovered ? 'var(--color-accent-mid)' : 'var(--color-accent-light)',
+          color: logoHovered
+            ? 'var(--color-accent-mid)'
+            : 'var(--color-accent-light)',
           transform: logoHovered ? 'scale(1.08)' : 'scale(1)',
         }}
       >
@@ -48,7 +57,9 @@ export function Navbar({ active }: NavbarProps) {
             key={n.href}
             href={n.href}
             className={`no-underline text-[10px] md:text-xs font-medium tracking-widest uppercase transition-colors duration-300 relative ${
-              active === n.href.slice(1) ? 'text-accent-light-strong' : 'text-text-soft hover:text-accent-light'
+              active === n.href.slice(1)
+                ? 'text-accent-light-strong'
+                : 'text-text-soft hover:text-accent-light'
             }`}
           >
             {n.label}

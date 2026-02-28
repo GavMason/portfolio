@@ -13,19 +13,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <Wrapper
-      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${project.title} (opens in new tab)` } : {})}
+      {...(project.link
+        ? {
+            href: project.link,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            'aria-label': `${project.title} (opens in new tab)`,
+          }
+        : {})}
       {...hoverHandlers}
       className="rounded-[20px] overflow-hidden transition-all duration-500 bg-surface block no-underline"
       style={{
         border: `1px solid ${hovered ? `rgba(${project.accent},0.2)` : 'var(--color-border)'}`,
         transform: hovered ? 'translateY(-6px)' : 'none',
-        boxShadow: hovered ? `0 24px 60px rgba(${project.accent},0.08)` : 'none',
+        boxShadow: hovered
+          ? `0 24px 60px rgba(${project.accent},0.08)`
+          : 'none',
       }}
     >
       {/* Preview */}
       <div
         className="relative flex items-center justify-center overflow-hidden transition-all duration-500"
-        style={{ height: hovered ? '160px' : '120px', background: project.preview }}
+        style={{
+          height: hovered ? '160px' : '120px',
+          background: project.preview,
+        }}
       >
         <div
           className="rounded-lg overflow-hidden transition-all duration-500 w-3/4 h-[70%] bg-bg-dark border border-border-light"
@@ -57,12 +69,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* Content */}
       <div className="p-7">
         <div className="flex justify-between items-center mb-2.5">
-          <h3 className="text-xl font-bold text-text-primary">{project.title}</h3>
+          <h3 className="text-xl font-bold text-text-primary">
+            {project.title}
+          </h3>
           {project.link && (
             <span
               className="text-sm inline-block transition-all duration-300"
               style={{
-                color: hovered ? `rgba(${project.accent},0.6)` : 'var(--color-text-faint)',
+                color: hovered
+                  ? `rgba(${project.accent},0.6)`
+                  : 'var(--color-text-faint)',
                 transform: hovered ? 'translateX(2px)' : 'none',
               }}
             >

@@ -53,7 +53,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
         dummy.position.set(
           radius * Math.cos(theta) * Math.sin(phi),
           radius * Math.sin(theta) * Math.sin(phi),
-          radius * Math.cos(phi)
+          radius * Math.cos(phi),
         )
         dummy.updateMatrix()
         dots.setMatrixAt(i, dummy.matrix)
@@ -64,7 +64,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
         color.setRGB(
           (0.55 + t * 0.2) * brightness,
           (0.36 + t * 0.15) * brightness,
-          (0.92 + t * 0.08) * brightness
+          (0.92 + t * 0.08) * brightness,
         )
         dots.setColorAt(i, color)
       }
@@ -86,7 +86,9 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
         const pts: THREE.Vector3[] = []
         for (let j = 0; j <= 64; j++) {
           const a = (j / 64) * Math.PI * 2
-          pts.push(new THREE.Vector3(Math.cos(a) * ringR, lat, Math.sin(a) * ringR))
+          pts.push(
+            new THREE.Vector3(Math.cos(a) * ringR, lat, Math.sin(a) * ringR),
+          )
         }
         const geo = new THREE.BufferGeometry().setFromPoints(pts)
         globe.add(new THREE.Line(geo, lineMat))
@@ -102,8 +104,8 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
             new THREE.Vector3(
               radius * Math.cos(lat) * Math.cos(lng),
               radius * Math.sin(lat),
-              radius * Math.cos(lat) * Math.sin(lng)
-            )
+              radius * Math.cos(lat) * Math.sin(lng),
+            ),
           )
         }
         const geo = new THREE.BufferGeometry().setFromPoints(pts)
@@ -119,7 +121,9 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
       window.addEventListener('mousemove', onMove)
 
       // Animation loop
-      const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const prefersStatic = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       let raf: number
       const smoothMouse = { x: 0, y: 0 }
 
@@ -135,7 +139,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
         smoothMouse.x += (mouse.current.x * 0.12 - smoothMouse.x) * 0.03
         smoothMouse.y += (mouse.current.y * 0.12 - smoothMouse.y) * 0.03
         globe.rotation.y = time * 0.06 + smoothMouse.x // Slow idle spin + mouse offset
-        globe.rotation.x = 0.2 + smoothMouse.y          // Slight tilt + mouse offset
+        globe.rotation.x = 0.2 + smoothMouse.y // Slight tilt + mouse offset
         renderer.render(scene, camera)
         raf = requestAnimationFrame(animate)
       }
@@ -156,7 +160,8 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
         window.removeEventListener('mousemove', onMove)
         window.removeEventListener('resize', onResize)
         renderer.dispose()
-        if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement)
+        if (el.contains(renderer.domElement))
+          el.removeChild(renderer.domElement)
       }
     }, 100)
 
@@ -171,7 +176,9 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
       className="w-full h-full"
       style={{
         opacity: visible ? 1 : 0,
-        transition: instant ? 'none' : 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.3s',
+        transition: instant
+          ? 'none'
+          : 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.3s',
       }}
     />
   )

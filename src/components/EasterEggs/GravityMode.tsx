@@ -53,7 +53,8 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
 
     // Create a container for cloned elements
     const container = document.createElement('div')
-    container.style.cssText = 'position:fixed;inset:0;z-index:99999;pointer-events:none;overflow:hidden;'
+    container.style.cssText =
+      'position:fixed;inset:0;z-index:99999;pointer-events:none;overflow:hidden;'
     document.body.appendChild(container)
     cloneContainerRef.current = container
 
@@ -77,7 +78,8 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
         rect.width < 10 ||
         rect.height < 5 ||
         rect.width > viewW * 0.8
-      ) return
+      )
+        return
 
       // Skip elements that are inside our overlay or other fixed elements
       const parent = htmlEl.closest('[class*="z-10000"], [class*="z-999"]')
@@ -185,7 +187,8 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
     // Animate everything back to original position
     const items = elementsRef.current
     items.forEach((item) => {
-      item.el.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+      item.el.style.transition =
+        'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
       item.el.style.transform = 'translate(0px, 0px) rotate(0deg)'
     })
 
@@ -224,7 +227,8 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--color-accent-border-hover)'
+              e.currentTarget.style.background =
+                'var(--color-accent-border-hover)'
               e.currentTarget.style.borderColor = 'var(--color-accent-semi)'
             }}
             onMouseLeave={(e) => {

@@ -21,10 +21,26 @@ const BASE_ITEMS: CommandItem[] = [
   { label: 'Go to Skills', action: '#skills', icon: '→', keys: '03' },
   { label: 'Go to Now', action: '#now', icon: '→', keys: '04' },
   { label: 'Go to Contact', action: '#contact', icon: '→', keys: '05' },
-  { label: 'GitHub', action: import.meta.env.VITE_GITHUB_URL || '#', icon: '⌨' },
-  { label: 'LinkedIn', action: import.meta.env.VITE_LINKEDIN_URL || '#', icon: '💼' },
-  { label: 'Email', action: `mailto:${import.meta.env.VITE_EMAIL || 'your@email.com'}`, icon: '✉' },
-  { label: 'Download Resume', action: import.meta.env.VITE_RESUME_PATH || '#', icon: '📄' },
+  {
+    label: 'GitHub',
+    action: import.meta.env.VITE_GITHUB_URL || '#',
+    icon: '⌨',
+  },
+  {
+    label: 'LinkedIn',
+    action: import.meta.env.VITE_LINKEDIN_URL || '#',
+    icon: '💼',
+  },
+  {
+    label: 'Email',
+    action: `mailto:${import.meta.env.VITE_EMAIL || 'your@email.com'}`,
+    icon: '✉',
+  },
+  {
+    label: 'Download Resume',
+    action: import.meta.env.VITE_RESUME_PATH || '#',
+    icon: '📄',
+  },
 ]
 
 /** Wrapper - mounts/unmounts the inner panel so state resets naturally */
@@ -34,7 +50,11 @@ export function CommandPalette(props: CommandPaletteProps) {
 }
 
 /** Inner panel */
-function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: CommandPaletteProps) {
+function CommandPaletteInner({
+  onClose,
+  onTriggerDvd,
+  onTriggerGravity,
+}: CommandPaletteProps) {
   const [query, setQuery] = useState('')
   const [activeIdx, setActiveIdx] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -42,11 +62,24 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
   const previousFocus = useRef<Element | null>(null)
   const mouseMoved = useRef(false)
 
-  const ITEMS = useMemo<CommandItem[]>(() => [
-    ...BASE_ITEMS,
-    { label: 'DVD Screensaver', action: '', icon: '📀', callback: onTriggerDvd },
-    { label: 'Break Everything', action: '', icon: '💥', callback: onTriggerGravity },
-  ], [onTriggerDvd, onTriggerGravity])
+  const ITEMS = useMemo<CommandItem[]>(
+    () => [
+      ...BASE_ITEMS,
+      {
+        label: 'DVD Screensaver',
+        action: '',
+        icon: '📀',
+        callback: onTriggerDvd,
+      },
+      {
+        label: 'Break Everything',
+        action: '',
+        icon: '💥',
+        callback: onTriggerGravity,
+      },
+    ],
+    [onTriggerDvd, onTriggerGravity],
+  )
 
   // Save previous focus, autofocus input, restore on unmount
   useEffect(() => {
@@ -59,16 +92,21 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
     }
   }, [])
 
-  const filtered = ITEMS.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))
+  const filtered = ITEMS.filter((i) =>
+    i.label.toLowerCase().includes(query.toLowerCase()),
+  )
 
-  const executeItem = useCallback((item: CommandItem) => {
-    if (item.callback) {
-      item.callback()
-    } else {
-      window.location.hash = item.action
-      onClose()
-    }
-  }, [onClose])
+  const executeItem = useCallback(
+    (item: CommandItem) => {
+      if (item.callback) {
+        item.callback()
+      } else {
+        window.location.hash = item.action
+        onClose()
+      }
+    },
+    [onClose],
+  )
 
   // Keyboard navigation + focus trap + escape
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -117,7 +155,9 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
         aria-modal="true"
         aria-label="Command palette"
         onKeyDown={handleKeyDown}
-        onMouseMove={() => { mouseMoved.current = true }}
+        onMouseMove={() => {
+          mouseMoved.current = true
+        }}
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-120 rounded-2xl overflow-hidden bg-surface-raised border border-border-hover"
         style={{ boxShadow: '0 40px 100px rgba(0,0,0,0.5)' }}
@@ -142,7 +182,12 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
         </div>
 
         {/* Results */}
-        <div id="cmd-results" role="listbox" aria-label="Commands" className="p-2 max-h-75 overflow-y-auto">
+        <div
+          id="cmd-results"
+          role="listbox"
+          aria-label="Commands"
+          className="p-2 max-h-75 overflow-y-auto"
+        >
           {filtered.map((item, i) => (
             <a
               key={i}
@@ -157,8 +202,12 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
               onMouseEnter={() => mouseMoved.current && setActiveIdx(i)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-[10px] no-underline text-sm transition-all duration-150"
               style={{
-                color: i === activeIdx ? 'var(--color-accent-light)' : 'var(--color-text-subtle)',
-                background: i === activeIdx ? 'var(--color-accent-faint)' : 'transparent',
+                color:
+                  i === activeIdx
+                    ? 'var(--color-accent-light)'
+                    : 'var(--color-text-subtle)',
+                background:
+                  i === activeIdx ? 'var(--color-accent-faint)' : 'transparent',
                 cursor: 'pointer',
               }}
             >
@@ -176,13 +225,22 @@ function CommandPaletteInner({ onClose, onTriggerDvd, onTriggerGravity }: Comman
         {/* Footer */}
         <div className="px-4 py-2.5 flex gap-4 text-[11px] border-t border-border text-text-dim">
           <span>
-            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-border-light">↑↓</kbd> navigate
+            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-border-light">
+              ↑↓
+            </kbd>{' '}
+            navigate
           </span>
           <span>
-            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-border-light">↵</kbd> select
+            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-border-light">
+              ↵
+            </kbd>{' '}
+            select
           </span>
           <span>
-            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-border-light">esc</kbd> close
+            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-border-light">
+              esc
+            </kbd>{' '}
+            close
           </span>
         </div>
       </div>

@@ -37,7 +37,9 @@ export function CTAButton({ href, primary, children }: CTAButtonProps) {
       onMouseLeave={() => setHovered(false)}
       className="px-7.5 py-3.5 rounded-[14px] no-underline font-medium text-sm transition-all duration-300"
       style={{
-        background: hovered ? 'var(--color-surface-hover)' : 'var(--color-surface)',
+        background: hovered
+          ? 'var(--color-surface-hover)'
+          : 'var(--color-surface)',
         border: `1px solid ${hovered ? 'var(--color-border-strong)' : 'var(--color-border-hover)'}`,
         color: hovered ? 'rgba(255,255,255,0.8)' : 'var(--color-text-subtle)',
         transform: hovered ? 'translateY(-2px)' : 'none',

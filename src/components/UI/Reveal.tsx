@@ -8,7 +8,12 @@ interface RevealProps {
   className?: string
 }
 
-export function Reveal({ children, delay = 0, y = 30, className }: RevealProps) {
+export function Reveal({
+  children,
+  delay = 0,
+  y = 30,
+  className,
+}: RevealProps) {
   return (
     <motion.div
       className={className}

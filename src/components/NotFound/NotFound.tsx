@@ -2,7 +2,9 @@ import { lazy, Suspense } from 'react'
 import { TopoLines } from '../Effects/TopoLines'
 import { ErrorBoundary } from '../UI/ErrorBoundary'
 
-const DotGlobe = lazy(() => import('../Hero/DotGlobe').then((m) => ({ default: m.DotGlobe })))
+const DotGlobe = lazy(() =>
+  import('../Hero/DotGlobe').then((m) => ({ default: m.DotGlobe })),
+)
 
 export function NotFound() {
   return (
@@ -36,7 +38,8 @@ export function NotFound() {
           href="/"
           className="inline-block px-7.5 py-3.5 rounded-[14px] text-white no-underline font-semibold text-sm transition-all duration-300 bg-linear-to-br from-accent to-accent-indigo hover:-translate-y-0.5"
           style={{
-            boxShadow: '0 4px 24px var(--color-accent-border-hover), inset 0 1px 0 rgba(255,255,255,0.1)',
+            boxShadow:
+              '0 4px 24px var(--color-accent-border-hover), inset 0 1px 0 rgba(255,255,255,0.1)',
           }}
         >
           Take me home

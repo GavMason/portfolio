@@ -11,7 +11,9 @@ export function GradientMesh() {
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     // Animation loop - drives time-based oscillation of gradient positions
-    const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersStatic = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
     let start = performance.now()
     let pausedAt = 0
 
@@ -31,11 +33,13 @@ export function GradientMesh() {
         rafRef.current = requestAnimationFrame(animate)
       }
     }
-    if (!prefersStatic) document.addEventListener('visibilitychange', onVisibility)
+    if (!prefersStatic)
+      document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      if (!prefersStatic) document.removeEventListener('visibilitychange', onVisibility)
+      if (!prefersStatic)
+        document.removeEventListener('visibilitychange', onVisibility)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
   }, [])

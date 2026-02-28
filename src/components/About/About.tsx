@@ -15,7 +15,8 @@ export function About() {
             <div
               className="w-50 h-50 rounded-3xl flex items-center justify-center overflow-hidden relative border border-border-light"
               style={{
-                background: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(99,102,241,0.06), rgba(59,130,246,0.04))',
+                background:
+                  'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(99,102,241,0.06), rgba(59,130,246,0.04))',
               }}
             >
               <TopoLines style={{ opacity: 0.3 }} />
@@ -45,13 +46,23 @@ export function About() {
               <div className="rounded-[20px] p-9 relative overflow-hidden bg-surface border border-border">
                 <div
                   className="absolute top-0 left-9 right-9 h-px"
-                  style={{ background: 'linear-gradient(to right, transparent, var(--color-accent-subtle), transparent)' }}
+                  style={{
+                    background:
+                      'linear-gradient(to right, transparent, var(--color-accent-subtle), transparent)',
+                  }}
                 />
                 <p className="text-base leading-relaxed text-text-subtle">
-                  I studied Computer Science at UCF and graduated in 2024. Since then I've been working as a software engineer doing applied cybersecurity and ML - building production systems, deploying secure solutions, and figuring out how to explain what I built to people who don't write code.
+                  I studied Computer Science at UCF and graduated in 2024. Since
+                  then I've been working as a software engineer doing applied
+                  cybersecurity and ML - building production systems, deploying
+                  secure solutions, and figuring out how to explain what I built
+                  to people who don't write code.
                 </p>
                 <p className="text-base leading-relaxed mt-5 text-text-subtle">
-                  What I enjoy most is taking something from an idea to a working thing. Could be a web app, an ML pipeline, a monitoring stack - the fun part is making it real and watching it work.
+                  What I enjoy most is taking something from an idea to a
+                  working thing. Could be a web app, an ML pipeline, a
+                  monitoring stack - the fun part is making it real and watching
+                  it work.
                 </p>
               </div>
             </Reveal>
@@ -78,14 +89,16 @@ export function About() {
                   After Hours
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {['🖥️ Homelab', '🛠️ Side Projects', '🧪 Experimenting'].map((hobby, i) => (
-                    <span
-                      key={i}
-                      className="text-xs px-3 py-1.5 rounded-lg text-text-body bg-border border border-border"
-                    >
-                      {hobby}
-                    </span>
-                  ))}
+                  {['🖥️ Homelab', '🛠️ Side Projects', '🧪 Experimenting'].map(
+                    (hobby, i) => (
+                      <span
+                        key={i}
+                        className="text-xs px-3 py-1.5 rounded-lg text-text-body bg-border border border-border"
+                      >
+                        {hobby}
+                      </span>
+                    ),
+                  )}
                 </div>
               </AboutInfoCard>
             </div>

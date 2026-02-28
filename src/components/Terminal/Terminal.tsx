@@ -49,7 +49,8 @@ export function Terminal() {
       <div
         className="absolute inset-0 pointer-events-none z-2 opacity-60"
         style={{
-          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
+          background:
+            'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
         }}
       />
 
@@ -69,13 +70,19 @@ export function Terminal() {
             className="text-[13px]"
             style={{
               lineHeight: 1.8,
-              color: l.prompt ? 'var(--color-accent-light-strong)' : 'var(--color-text-mid)',
+              color: l.prompt
+                ? 'var(--color-accent-light-strong)'
+                : 'var(--color-text-mid)',
               opacity: 0,
               animation: 'term-fade 0.3s ease forwards',
               animationDelay: `${i * 50}ms`, // Stagger each line's fade-in slightly
             }}
           >
-            {l.prompt && <span className="mr-2" style={{ color: 'rgba(74,222,128,0.7)' }}>❯</span>}
+            {l.prompt && (
+              <span className="mr-2" style={{ color: 'rgba(74,222,128,0.7)' }}>
+                ❯
+              </span>
+            )}
             {l.text}
           </div>
         ))}

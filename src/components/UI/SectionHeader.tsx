@@ -8,7 +8,12 @@ interface SectionHeaderProps {
   sectionId: string
 }
 
-export function SectionHeader({ number, title, subtitle, sectionId }: SectionHeaderProps) {
+export function SectionHeader({
+  number,
+  title,
+  subtitle,
+  sectionId,
+}: SectionHeaderProps) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -22,7 +27,9 @@ export function SectionHeader({ number, title, subtitle, sectionId }: SectionHea
             onMouseLeave={() => setHovered(false)}
             className="text-sm font-medium tracking-[2px] font-mono no-underline transition-all duration-300 cursor-pointer border-b"
             style={{
-              color: hovered ? 'var(--color-accent-vivid)' : 'var(--color-accent-muted)',
+              color: hovered
+                ? 'var(--color-accent-vivid)'
+                : 'var(--color-accent-muted)',
               borderColor: hovered ? 'var(--color-accent-glow)' : 'transparent',
             }}
           >
@@ -32,7 +39,9 @@ export function SectionHeader({ number, title, subtitle, sectionId }: SectionHea
         </div>
         {/* Subtitle */}
         {subtitle && (
-          <p className="text-text-muted text-[15px] ml-9.5 mb-12 mt-2">{subtitle}</p>
+          <p className="text-text-muted text-[15px] ml-9.5 mb-12 mt-2">
+            {subtitle}
+          </p>
         )}
       </div>
     </Reveal>

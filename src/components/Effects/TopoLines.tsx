@@ -9,10 +9,10 @@ export function TopoLines({ className = '', style = {} }: TopoLinesProps) {
   // Generate wavy horizontal lines across the SVG viewBox.
   // Each line combines two sine waves (primary + harmonic) to produce organic curves.
   for (let i = 0; i < 18; i++) {
-    const y = 3 + i * 5.5              // Evenly spaced vertical positions
-    const amp = 4 + Math.sin(i * 0.7) * 5  // Amplitude varies per line for visual variety
-    const freq = 0.008 + (i % 3) * 0.004   // 3 alternating frequencies across groups of lines
-    const phase = i * 35               // Horizontal offset so lines don't align
+    const y = 3 + i * 5.5 // Evenly spaced vertical positions
+    const amp = 4 + Math.sin(i * 0.7) * 5 // Amplitude varies per line for visual variety
+    const freq = 0.008 + (i % 3) * 0.004 // 3 alternating frequencies across groups of lines
+    const phase = i * 35 // Horizontal offset so lines don't align
     let d = `M 0 ${y}`
     for (let x = 0; x <= 100; x += 1.5) {
       // Primary wave + 60% harmonic at half frequency for organic shape

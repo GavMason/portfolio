@@ -47,7 +47,8 @@ export function GlowCursor() {
           y: trailY,
           translateX: '-50%',
           translateY: '-50%',
-          background: 'radial-gradient(circle, var(--color-accent-ghost) 0%, transparent 70%)',
+          background:
+            'radial-gradient(circle, var(--color-accent-ghost) 0%, transparent 70%)',
         }}
       />
     </>

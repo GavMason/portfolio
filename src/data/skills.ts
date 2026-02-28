@@ -18,11 +18,11 @@ const TIER_R: Record<number, number> = { 1: 6, 2: 5, 3: 4, 4: 3.2, 5: 2.6 }
 
 // Cluster centers for 2×3 grid layout
 const CLUSTER_CENTERS: [number, number][] = [
-  [25, 28],  // cat 0: Languages (top-left)
-  [75, 28],  // cat 1: Frameworks (top-center)
+  [25, 28], // cat 0: Languages (top-left)
+  [75, 28], // cat 1: Frameworks (top-center)
   [125, 26], // cat 2: Cloud & Infra (top-right)
-  [30, 68],  // cat 3: ML / AI (bottom-left)
-  [88, 68],  // cat 4: Security (bottom-center)
+  [30, 68], // cat 3: ML / AI (bottom-left)
+  [88, 68], // cat 4: Security (bottom-center)
   [130, 68], // cat 5: DevOps (bottom-right)
 ]
 
@@ -101,9 +101,7 @@ const RAW_SKILLS = [
 ]
 
 // Compute positions using a spiral distribution around each cluster center
-function computePositions(
-  skills: typeof RAW_SKILLS,
-): Skill[] {
+function computePositions(skills: typeof RAW_SKILLS): Skill[] {
   // Group by category, sort by tier within each group
   const groups = new Map<number, typeof RAW_SKILLS>()
   for (const s of skills) {
@@ -173,15 +171,46 @@ function computePositions(
 export const SKILLS_DATA: Skill[] = computePositions(RAW_SKILLS)
 
 export const CAT_COLORS: CatColor[] = [
-  { fill: 'rgba(196,181,253,0.9)', bg: 'rgba(196,181,253,0.08)', glow: '196,181,253' },
-  { fill: 'rgba(129,140,248,0.9)', bg: 'rgba(129,140,248,0.08)', glow: '129,140,248' },
-  { fill: 'rgba(96,165,250,0.9)', bg: 'rgba(96,165,250,0.08)', glow: '96,165,250' },
-  { fill: 'rgba(244,114,182,0.9)', bg: 'rgba(244,114,182,0.08)', glow: '244,114,182' },
-  { fill: 'rgba(251,191,36,0.85)', bg: 'rgba(251,191,36,0.08)', glow: '251,191,36' },
-  { fill: 'rgba(74,222,128,0.85)', bg: 'rgba(74,222,128,0.08)', glow: '74,222,128' },
+  {
+    fill: 'rgba(196,181,253,0.9)',
+    bg: 'rgba(196,181,253,0.08)',
+    glow: '196,181,253',
+  },
+  {
+    fill: 'rgba(129,140,248,0.9)',
+    bg: 'rgba(129,140,248,0.08)',
+    glow: '129,140,248',
+  },
+  {
+    fill: 'rgba(96,165,250,0.9)',
+    bg: 'rgba(96,165,250,0.08)',
+    glow: '96,165,250',
+  },
+  {
+    fill: 'rgba(244,114,182,0.9)',
+    bg: 'rgba(244,114,182,0.08)',
+    glow: '244,114,182',
+  },
+  {
+    fill: 'rgba(251,191,36,0.85)',
+    bg: 'rgba(251,191,36,0.08)',
+    glow: '251,191,36',
+  },
+  {
+    fill: 'rgba(74,222,128,0.85)',
+    bg: 'rgba(74,222,128,0.08)',
+    glow: '74,222,128',
+  },
 ]
 
-export const CAT_LABELS = ['Languages', 'Frameworks', 'Cloud & Infra', 'ML / AI', 'Security', 'DevOps']
+export const CAT_LABELS = [
+  'Languages',
+  'Frameworks',
+  'Cloud & Infra',
+  'ML / AI',
+  'Security',
+  'DevOps',
+]
 
 // Pre-compute constellation connections - same-category nodes only, within 28 units.
 export interface Connection {

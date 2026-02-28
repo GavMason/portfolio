@@ -27,7 +27,12 @@ export function SkillTooltip({ skill, x, y, color }: SkillTooltipProps) {
         }}
       >
         {/* Skill name */}
-        <div className="text-[13px] font-bold mb-1" style={{ color: color.fill }}>{skill.name}</div>
+        <div
+          className="text-[13px] font-bold mb-1"
+          style={{ color: color.fill }}
+        >
+          {skill.name}
+        </div>
         {/* Category label */}
         <div className="text-[10px] tracking-widest uppercase font-mono text-text-soft">
           {CAT_LABELS[skill.cat]}
