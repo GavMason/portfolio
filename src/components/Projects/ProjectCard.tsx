@@ -13,7 +13,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <Wrapper
-      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${project.title} (opens in new tab)` } : {})}
       {...hoverHandlers}
       className="rounded-[20px] overflow-hidden transition-all duration-500 bg-surface block no-underline"
       style={{

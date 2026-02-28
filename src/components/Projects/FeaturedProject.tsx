@@ -14,7 +14,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
 
   return (
     <Wrapper
-      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${project.title} (opens in new tab)` } : {})}
       {...hoverHandlers}
       className="relative rounded-3xl mb-5 p-px cursor-pointer block no-underline"
     >
