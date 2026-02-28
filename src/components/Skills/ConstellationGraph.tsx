@@ -73,8 +73,13 @@ export function ConstellationGraph() {
             return (
               <g
                 key={i}
+                tabIndex={0}
+                role="button"
+                aria-label={s.name}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered(i)}
+                onBlur={() => setHovered(null)}
                 className="cursor-pointer"
               >
                 {/* Hover halo */}
@@ -151,6 +156,8 @@ export function ConstellationGraph() {
           return (
             <button
               key={i}
+              aria-label={`Filter by ${label}`}
+              aria-pressed={isActive}
               onClick={() => setActiveCat((prev) => (prev === i ? null : i))}
               onMouseEnter={() => setHoveredCatBtn(i)}
               onMouseLeave={() => setHoveredCatBtn(null)}
