@@ -11,6 +11,7 @@ export function BackToTop() {
 
   return (
     <button
+      aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

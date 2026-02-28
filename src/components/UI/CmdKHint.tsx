@@ -19,6 +19,7 @@ export function CmdKHint({ onClick, dismissed }: CmdKHintProps) {
 
   return (
     <button
+      aria-label="Open command palette"
       onClick={onClick}
       className="fixed bottom-8 right-8 z-100 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono text-text-soft border border-border-hover bg-surface-glass backdrop-blur-md transition-all duration-300 hover:text-accent-light hover:border-accent-border-hover"
       style={{

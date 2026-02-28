@@ -130,6 +130,8 @@ export function DVDScreensaver({ show, onClose }: DVDScreensaverProps) {
 
   return (
     <div
+      role="button"
+      aria-label="Close DVD screensaver"
       onClick={onClose}
       className="fixed inset-0 z-10000 cursor-pointer"
     >

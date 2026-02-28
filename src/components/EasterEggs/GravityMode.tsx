@@ -203,6 +203,8 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
     <div className="fixed inset-0 z-10000" style={{ pointerEvents: 'auto' }}>
       {/* Dark backdrop */}
       <div
+        role="button"
+        aria-label="Rebuild page"
         className="absolute inset-0 bg-bg"
         style={{ opacity: 0.5 }}
         onClick={handleRebuild}
