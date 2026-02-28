@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
 import { TypingText } from './TypingText'
 import { CTAButton } from '../UI/CTAButton'
+import { ErrorBoundary } from '../UI/ErrorBoundary'
 
 const DotGlobe = lazy(() => import('./DotGlobe').then((m) => ({ default: m.DotGlobe })))
 import { TopoLines } from '../Effects/TopoLines'
@@ -98,9 +99,11 @@ export function Hero({ loaded }: HeroProps) {
           transition: 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.5s',
         }}
       >
-        <Suspense fallback={null}>
-          <DotGlobe visible={phase >= 2} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <DotGlobe visible={phase >= 2} />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       {/* Scroll indicator */}
