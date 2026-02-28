@@ -70,7 +70,7 @@ function App() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-bg text-text-secondary font-sans relative overflow-x-hidden cursor-none">
+    <main className="min-h-screen bg-bg text-text-secondary font-sans relative overflow-x-hidden">
       <GlowCursor />
       <DVDScreensaver show={dvdMode} onClose={() => setDvdMode(false)} />
       <GravityMode show={gravityMode} onClose={() => setGravityMode(false)} />

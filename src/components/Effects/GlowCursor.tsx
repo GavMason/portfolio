@@ -4,7 +4,16 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 const SPRING = { damping: 30, stiffness: 150, mass: 0.2 }
 
 export function GlowCursor() {
-  const [isTouch] = useState(() => 'ontouchstart' in window)
+  const [isTouch, setIsTouch] = useState(
+    () => !window.matchMedia('(hover: hover)').matches,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover)')
+    const update = () => setIsTouch(!mq.matches)
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
 
   // Raw mouse position (instant)
   const mouseX = useMotionValue(-100)

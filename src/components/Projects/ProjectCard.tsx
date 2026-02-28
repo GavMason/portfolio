@@ -67,7 +67,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-7">
+      <div className="p-4 sm:p-7">
         <div className="flex justify-between items-center mb-2.5">
           <h3 className="text-xl font-bold text-text-primary">
             {project.title}

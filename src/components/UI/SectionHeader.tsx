@@ -35,7 +35,9 @@ export function SectionHeader({
           >
             {number}
           </a>
-          <h2 className="text-[32px] font-bold tracking-tight">{title}</h2>
+          <h2 className="text-2xl sm:text-[32px] font-bold tracking-tight">
+            {title}
+          </h2>
         </div>
         {/* Subtitle */}
         {subtitle && (

@@ -63,7 +63,7 @@ export function Terminal() {
       </div>
 
       {/* Body */}
-      <div className="p-5 min-h-55 relative z-3">
+      <div className="p-3 sm:p-5 min-h-55 relative z-3">
         {lines.map((l, i) => (
           <div
             key={i}

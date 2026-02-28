@@ -16,7 +16,7 @@ export function Contact() {
           <span className="text-sm font-medium tracking-[2px] font-mono text-accent-muted">
             05
           </span>
-          <h2 className="text-[40px] font-black tracking-tight mt-2 mb-5">
+          <h2 className="text-3xl sm:text-[40px] font-black tracking-tight mt-2 mb-5">
             Let's talk.
           </h2>
           <p className="text-[17px] leading-relaxed mb-4 text-text-muted">

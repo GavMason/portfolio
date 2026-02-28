@@ -37,7 +37,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
       />
 
       <div
-        className="rounded-3xl overflow-hidden grid grid-cols-2 relative transition-all duration-500"
+        className="rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 relative transition-all duration-500"
         style={{
           background: hovered
             ? 'var(--color-surface-card)'
@@ -72,7 +72,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
         </div>
 
         {/* Content */}
-        <div className="p-10 flex flex-col justify-center">
+        <div className="p-5 md:p-10 flex flex-col justify-center">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-2xl font-bold text-text-primary">
               {project.title}

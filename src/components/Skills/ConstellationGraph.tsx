@@ -21,7 +21,7 @@ export function ConstellationGraph() {
 
   return (
     <div ref={ref} className="relative w-full">
-      <div className="relative w-full" style={{ paddingTop: '55%' }}>
+      <div className="relative w-full pt-[90%] sm:pt-[55%]">
         <svg
           viewBox="-8 -4 166 100"
           className="absolute top-0 left-0 w-full h-full transition-opacity duration-1000"
@@ -81,6 +81,7 @@ export function ConstellationGraph() {
                 tabIndex={0}
                 role="button"
                 aria-label={s.name}
+                onClick={() => setHovered((prev) => (prev === i ? null : i))}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
                 onFocus={() => setHovered(i)}

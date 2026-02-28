@@ -18,9 +18,8 @@ export function Navbar({ active }: NavbarProps) {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-100 flex justify-between items-center px-5 md:px-10"
+      className={`fixed top-0 left-0 right-0 z-100 flex justify-between items-center px-5 md:px-10 ${scrolled ? 'py-3.5' : 'py-5'}`}
       style={{
-        padding: scrolled ? '14px 40px' : '20px 40px',
         background: scrolled ? 'rgba(7,7,13,0.92)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         borderBottom: scrolled

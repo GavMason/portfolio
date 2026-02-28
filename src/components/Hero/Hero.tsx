@@ -46,7 +46,7 @@ export function Hero({ loaded }: HeroProps) {
     >
       <TopoLines style={{ opacity: 0.7, zIndex: 0 }} />
 
-      <div className="relative z-1 shrink-0 max-w-140 ml-[clamp(20px,8vw,120px)]">
+      <div className="relative z-1 w-full max-w-140 ml-5 md:ml-[clamp(20px,8vw,120px)]">
         {/* Status badge */}
         <div style={fadeIn(1)}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 bg-accent-ghost border border-accent-border">
@@ -75,7 +75,7 @@ export function Hero({ loaded }: HeroProps) {
             </span>
             <span className="text-accent-muted">.</span>
           </h1>
-          <p className="leading-relaxed max-w-115 mb-10 text-[clamp(14px,1.6vw,16px)] text-text-mid">
+          <p className="leading-relaxed max-w-115 mb-10 text-[clamp(14px,3.5vw,16px)] text-text-mid">
             <TypingText
               text={HERO_BIO}
               trigger={phase >= 2}
@@ -92,7 +92,7 @@ export function Hero({ loaded }: HeroProps) {
               See my work
             </CTAButton>
             <CTAButton href="#contact">Say hello</CTAButton>
-            <span className="text-[11px] ml-2 font-mono text-text-faint">
+            <span className="text-[11px] ml-2 font-mono text-text-faint hidden md:inline">
               press{' '}
               <kbd className="px-1.5 py-0.5 rounded text-[10px] bg-surface-hover border border-border-light">
                 ⌘K
@@ -104,7 +104,7 @@ export function Hero({ loaded }: HeroProps) {
 
       {/* Three.js Globe */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 right-[2%] w-[42vw] h-[42vw] max-w-125 max-h-125"
+        className="absolute top-1/2 -translate-y-1/2 right-[2%] hidden md:block w-[42vw] h-[42vw] max-w-125 max-h-125"
         style={{
           opacity: phase >= 2 ? 1 : 0,
           transition: 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.5s',

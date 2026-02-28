@@ -21,7 +21,7 @@ export function Projects() {
         </Reveal>
 
         {/* Remaining projects in a grid */}
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {PROJECTS.slice(1).map((p, i) => (
             <Reveal key={i} delay={200 + i * 100}>
               <ProjectCard project={p} />

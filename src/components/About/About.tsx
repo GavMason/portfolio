@@ -9,11 +9,11 @@ export function About() {
       <div className="max-w-250 mx-auto">
         <SectionHeader number="01" title="About" sectionId="about" />
 
-        <div className="grid gap-5" style={{ gridTemplateColumns: 'auto 1fr' }}>
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-[auto_1fr]">
           {/* Avatar placeholder */}
           <Reveal delay={50}>
             <div
-              className="w-50 h-50 rounded-3xl flex items-center justify-center overflow-hidden relative border border-border-light"
+              className="w-36 h-36 md:w-50 md:h-50 mx-auto md:mx-0 rounded-3xl flex items-center justify-center overflow-hidden relative border border-border-light"
               style={{
                 background:
                   'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(99,102,241,0.06), rgba(59,130,246,0.04))',
