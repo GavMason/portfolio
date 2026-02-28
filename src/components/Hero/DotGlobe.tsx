@@ -3,9 +3,10 @@ import * as THREE from 'three'
 
 interface DotGlobeProps {
   visible: boolean
+  instant?: boolean
 }
 
-export function DotGlobe({ visible }: DotGlobeProps) {
+export function DotGlobe({ visible, instant }: DotGlobeProps) {
   const mountRef = useRef<HTMLDivElement>(null)
   const mouse = useRef({ x: 0, y: 0 })
 
@@ -162,7 +163,7 @@ export function DotGlobe({ visible }: DotGlobeProps) {
       className="w-full h-full"
       style={{
         opacity: visible ? 1 : 0,
-        transition: 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.3s',
+        transition: instant ? 'none' : 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.3s',
       }}
     />
   )

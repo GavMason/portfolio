@@ -19,9 +19,12 @@ import { DVDScreensaver } from './components/EasterEggs/DVDScreensaver'
 import { GravityMode } from './components/EasterEggs/GravityMode'
 import { SectionDivider } from './components/UI/SectionDivider'
 import { CmdKHint } from './components/UI/CmdKHint'
+import { NotFound } from './components/NotFound/NotFound'
 import { NAV } from './data/navigation'
 
 function App() {
+  const is404 = window.location.pathname !== '/'
+
   // State
   const [active, setActive] = useState('hero')
   const [cmdOpen, setCmdOpen] = useState(false)
@@ -70,40 +73,50 @@ function App() {
       <GlowCursor />
       <DVDScreensaver show={dvdMode} onClose={() => setDvdMode(false)} />
       <GravityMode show={gravityMode} onClose={() => setGravityMode(false)} />
-      <PageLoader onDone={handleLoaded} />
-      <ScrollProgress />
+      {!is404 && <PageLoader onDone={handleLoaded} />}
+      {!is404 && <ScrollProgress />}
       <GradientMesh />
       <NoiseOverlay />
-      <Navbar active={active} />
-      <CommandPalette
-        open={cmdOpen}
-        onClose={() => setCmdOpen(false)}
-        onTriggerDvd={() => { setCmdOpen(false); setDvdMode(true) }}
-        onTriggerGravity={() => { setCmdOpen(false); setGravityMode(true) }}
-      />
-      <BackToTop />
-      <CmdKHint
-        dismissed={cmdUsed}
-        onClick={() => { setCmdOpen(true); setCmdUsed(true) }}
-      />
+      {!is404 && (
+        <>
+          <Navbar active={active} />
+          <CommandPalette
+            open={cmdOpen}
+            onClose={() => setCmdOpen(false)}
+            onTriggerDvd={() => { setCmdOpen(false); setDvdMode(true) }}
+            onTriggerGravity={() => { setCmdOpen(false); setGravityMode(true) }}
+          />
+          <BackToTop />
+          <CmdKHint
+            dismissed={cmdUsed}
+            onClick={() => { setCmdOpen(true); setCmdUsed(true) }}
+          />
+        </>
+      )}
 
-      <Hero loaded={loaded} />
-      <Ticker />
+      {is404 ? (
+        <NotFound />
+      ) : (
+        <>
+          <Hero loaded={loaded} />
+          <Ticker />
 
-      <About />
-      <SectionDivider />
+          <About />
+          <SectionDivider />
 
-      <Projects />
-      <SectionDivider />
+          <Projects />
+          <SectionDivider />
 
-      <Skills />
-      <SectionDivider />
+          <Skills />
+          <SectionDivider />
 
-      <Now />
-      <SectionDivider />
+          <Now />
+          <SectionDivider />
 
-      <Contact />
-      <Footer />
+          <Contact />
+          <Footer />
+        </>
+      )}
     </div>
   )
 }
