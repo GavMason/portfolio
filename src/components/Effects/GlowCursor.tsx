@@ -7,6 +7,7 @@ export function GlowCursor() {
   const [isTouch, setIsTouch] = useState(
     () => !window.matchMedia('(hover: hover)').matches,
   )
+  const [hovering, setHovering] = useState(false)
 
   useEffect(() => {
     const mq = window.matchMedia('(hover: hover)')
@@ -33,31 +34,49 @@ export function GlowCursor() {
     return () => window.removeEventListener('mousemove', move)
   }, [isTouch, mouseX, mouseY])
 
+  // Track hover over interactive elements
+  useEffect(() => {
+    if (isTouch) return
+    const onOver = (e: MouseEvent) => {
+      const el = (e.target as HTMLElement).closest(
+        'a, button, [role="button"], input, textarea, select, [tabindex]',
+      )
+      setHovering(!!el)
+    }
+    window.addEventListener('mouseover', onOver)
+    return () => window.removeEventListener('mouseover', onOver)
+  }, [isTouch])
+
   if (isTouch) return null
 
   return (
     <>
       {/* Dot - snaps to cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-9998 will-change-transform bg-accent-light-muted"
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-9998 will-change-transform bg-accent-light-muted"
         style={{
+          width: hovering ? 6 : 8,
+          height: hovering ? 6 : 8,
           x: mouseX,
           y: mouseY,
           translateX: '-50%',
           translateY: '-50%',
-          boxShadow: '0 0 12px var(--color-accent-glow)',
+          transition: 'width 0.2s, height 0.2s',
         }}
       />
-      {/* Trail - springs behind */}
+      {/* Ring - only visible on interactive elements */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-9997 will-change-transform border border-accent-subtle"
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-9997 will-change-transform"
         style={{
+          width: hovering ? 40 : 0,
+          height: hovering ? 40 : 0,
+          opacity: hovering ? 1 : 0,
           x: trailX,
           y: trailY,
           translateX: '-50%',
           translateY: '-50%',
-          background:
-            'radial-gradient(circle, var(--color-accent-ghost) 0%, transparent 70%)',
+          border: '1px solid var(--color-accent-subtle)',
+          transition: 'width 0.25s, height 0.25s, opacity 0.25s',
         }}
       />
     </>
