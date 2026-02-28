@@ -1,20 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { TypingText } from './TypingText'
-import { DotGlobe } from './DotGlobe'
 import { CTAButton } from '../UI/CTAButton'
+
+const DotGlobe = lazy(() => import('./DotGlobe').then((m) => ({ default: m.DotGlobe })))
 import { TopoLines } from '../Effects/TopoLines'
 import { HERO_BIO, getGreeting } from '../../data/constants'
+
+const prefersStatic = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 interface HeroProps {
   loaded: boolean
 }
 
 export function Hero({ loaded }: HeroProps) {
-  const [phase, setPhase] = useState(0)
+  const [phase, setPhase] = useState(prefersStatic ? 3 : 0)
   const [greeting] = useState(getGreeting)
 
   useEffect(() => {
-    if (!loaded) return
+    if (!loaded || prefersStatic) return
     // Staggered entrance: badge -> heading + globe -> CTAs + scroll indicator
     const timers = [
       setTimeout(() => setPhase(1), 200),
@@ -95,7 +98,9 @@ export function Hero({ loaded }: HeroProps) {
           transition: 'opacity 1.5s cubic-bezier(.4,0,.2,1) 0.5s',
         }}
       >
-        <DotGlobe visible={phase >= 2} />
+        <Suspense fallback={null}>
+          <DotGlobe visible={phase >= 2} />
+        </Suspense>
       </div>
 
       {/* Scroll indicator */}

@@ -1,5 +1,7 @@
-import { DotGlobe } from '../Hero/DotGlobe'
+import { lazy, Suspense } from 'react'
 import { TopoLines } from '../Effects/TopoLines'
+
+const DotGlobe = lazy(() => import('../Hero/DotGlobe').then((m) => ({ default: m.DotGlobe })))
 
 export function NotFound() {
   return (
@@ -8,7 +10,9 @@ export function NotFound() {
 
       {/* Globe behind the text */}
       <div className="absolute w-[min(90vw,700px)] h-[min(90vw,700px)] opacity-30">
-        <DotGlobe visible instant />
+        <Suspense fallback={null}>
+          <DotGlobe visible instant />
+        </Suspense>
       </div>
 
       {/* Content */}
