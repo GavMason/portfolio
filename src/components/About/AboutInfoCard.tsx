@@ -11,11 +11,11 @@ export function AboutInfoCard({ children, hoverAccent = '139,92,246', delay = 0 
   const [hovered, setHovered] = useState(false)
 
   return (
-    <Reveal delay={delay}>
+    <Reveal delay={delay} className="h-full">
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="rounded-[20px] p-6 transition-all duration-400"
+        className="rounded-[20px] p-6 h-full transition-all duration-400"
         style={{
           background: hovered ? `rgba(${hoverAccent},0.03)` : 'var(--color-surface)',
           border: `1px solid ${hovered ? `rgba(${hoverAccent},0.1)` : 'var(--color-border)'}`,
