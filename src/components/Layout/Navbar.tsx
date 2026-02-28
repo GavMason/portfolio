@@ -29,7 +29,8 @@ export function Navbar({ active }: NavbarProps) {
     >
       {/* Logo */}
       <a
-        href="#hero"
+        href="#"
+        onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); history.replaceState(null, '', ' ') }}
         onMouseEnter={() => setLogoHovered(true)}
         onMouseLeave={() => setLogoHovered(false)}
         className="text-xl font-black no-underline inline-block transition-all duration-300"
