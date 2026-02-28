@@ -161,7 +161,7 @@ export function ConstellationGraph() {
               onClick={() => setActiveCat((prev) => (prev === i ? null : i))}
               onMouseEnter={() => setHoveredCatBtn(i)}
               onMouseLeave={() => setHoveredCatBtn(null)}
-              className="flex items-center gap-2 rounded-full px-3.5 py-1.5 outline-none cursor-pointer transition-all duration-400"
+              className="flex items-center gap-2 rounded-full px-4 py-2.5 outline-none cursor-pointer transition-all duration-400"
               style={{
                 background: isActive
                   ? `rgba(${CAT_COLORS[i].glow},0.08)`

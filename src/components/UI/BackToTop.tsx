@@ -15,7 +15,7 @@ export function BackToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="fixed bottom-20 right-8 z-90 w-10 h-10 rounded-xl flex items-center justify-center outline-none backdrop-blur-md transition-all duration-400"
+      className="fixed bottom-20 right-8 z-90 w-11 h-11 rounded-xl flex items-center justify-center outline-none backdrop-blur-md transition-all duration-400"
       style={{
         background: hovered ? 'var(--color-accent-subtle)' : 'var(--color-border)',
         border: `1px solid ${hovered ? 'var(--color-accent-border-hover)' : 'var(--color-border-light)'}`,
