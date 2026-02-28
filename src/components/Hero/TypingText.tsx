@@ -36,21 +36,17 @@ export function TypingText({ text, trigger, speed = 22, delay = 0 }: TypingTextP
     return () => clearInterval(interval)
   }, [started, text, speed])
 
-  // Render invisible full text before animation starts to reserve layout space and avoid reflow
-  if (!started && !displayed) {
-    return <span className="opacity-0">{text}</span>
-  }
-
   return (
     <span>
       {displayed}
-      {/* Blinking cursor - hides after typing completes */}
       {showCursor && started && (
         <span
           className="inline-block w-0.5 h-[1em] ml-0.5 align-text-bottom bg-accent-light-muted"
           style={{ animation: 'type-cursor 0.8s step-end infinite' }}
         />
       )}
+      {/* Invisible remaining text reserves layout space to prevent reflow */}
+      <span className="invisible">{text.slice(displayed.length)}</span>
     </span>
   )
 }
