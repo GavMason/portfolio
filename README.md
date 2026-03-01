@@ -22,7 +22,7 @@ My personal portfolio — [gavmason.me](https://gavmason.me)
 ## Getting Started
 
 ```bash
-git clone https://github.com/gavmason/portfolio.git
+git clone https://github.com/gavxm/portfolio.git
 cd portfolio
 cp .env.example .env   # fill in your values
 npm install
