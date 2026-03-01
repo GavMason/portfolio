@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { copyFileSync } from 'fs'
 import { resolve } from 'path'
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 function copy404(): Plugin {
   return {
     name: 'copy-404',
@@ -14,7 +16,7 @@ function copy404(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), copy404()],
+  plugins: [react(), tailwindcss(), copy404(), cloudflare()],
   build: {
     outDir: 'build',
     rollupOptions: {
