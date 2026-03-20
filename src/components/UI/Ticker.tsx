@@ -22,20 +22,25 @@ export function Ticker() {
       onMouseLeave={() => setPaused(false)}
       className="relative z-3 overflow-hidden py-4 border-y border-border bg-[rgba(255,255,255,0.01)]"
     >
-      {/* Two identical halves - animation scrolls first half offscreen, then
-          resets to 0 which looks identical, creating a seamless loop. */}
+      {/* Repeat enough copies to always fill the viewport. The animation
+          scrolls exactly one copy's width, then resets seamlessly. */}
       <div
-        className="flex gap-16 whitespace-nowrap"
+        className="flex whitespace-nowrap"
         style={{
           animation: 'ticker-scroll 20s linear infinite',
           animationPlayState: paused ? 'paused' : 'running',
           width: 'max-content',
         }}
       >
-        <div className="flex gap-16 shrink-0">{BLOCK}</div>
-        <div className="flex gap-16 shrink-0" aria-hidden>
-          {BLOCK}
-        </div>
+        {Array.from({ length: 4 }, (_, i) => (
+          <div
+            key={i}
+            className="flex gap-16 shrink-0 pr-16"
+            aria-hidden={i > 0 || undefined}
+          >
+            {BLOCK}
+          </div>
+        ))}
       </div>
     </div>
   )
