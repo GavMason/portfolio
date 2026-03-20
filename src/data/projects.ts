@@ -33,13 +33,14 @@ export const PROJECTS: Project[] = [
     link: import.meta.env.VITE_HOMELAB_URL || '#',
   },
   {
-    title: 'MCP Server',
+    title: 'ani-mcp',
     description:
-      'Building a Model Context Protocol server to extend what AI assistants can do.',
-    tags: ['MCP', 'AI', 'Server'],
-    status: 'coming-soon',
+      'A Model Context Protocol server that extends what AI assistants can do.',
+    tags: ['MCP', 'AI', 'TypeScript'],
+    status: 'active',
     accent: '236,72,153',
     preview: 'linear-gradient(135deg, #1a0a1e, #3d1545, #1a0a1e)',
     mockup: 'terminal',
+    link: import.meta.env.VITE_MCP_URL || '#',
   },
 ]
