@@ -81,10 +81,18 @@ function CommandPaletteInner({
     [onTriggerDvd, onTriggerGravity],
   )
 
-  // Save previous focus, autofocus input, restore on unmount
+  const focusableRef = useRef<HTMLElement[]>([])
+
+  // Save previous focus, autofocus input, cache focusable elements, restore on unmount
   useEffect(() => {
     previousFocus.current = document.activeElement
     inputRef.current?.focus()
+    // Cache focusable elements for focus trap
+    focusableRef.current = Array.from(
+      dialogRef.current?.querySelectorAll<HTMLElement>(
+        'input, button, [tabindex]:not([tabindex="-1"])',
+      ) ?? [],
+    )
     return () => {
       if (previousFocus.current instanceof HTMLElement) {
         previousFocus.current.focus()
@@ -132,10 +140,8 @@ function CommandPaletteInner({
     }
     // Focus trap
     if (e.key === 'Tab') {
-      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'input, a[href], button, [tabindex]:not([tabindex="-1"])',
-      )
-      if (!focusable || focusable.length === 0) return
+      const focusable = focusableRef.current
+      if (focusable.length === 0) return
       const first = focusable[0]
       const last = focusable[focusable.length - 1]
       if (e.shiftKey && document.activeElement === first) {
@@ -195,18 +201,14 @@ function CommandPaletteInner({
           className="p-2 max-h-75 overflow-y-auto"
         >
           {filtered.map((item, i) => (
-            <a
+            <div
               key={i}
               id={`cmd-option-${i}`}
               role="option"
               aria-selected={i === activeIdx}
-              href={item.callback ? undefined : item.action}
-              onClick={(e) => {
-                e.preventDefault()
-                executeItem(item)
-              }}
+              onClick={() => executeItem(item)}
               onMouseEnter={() => mouseMoved.current && setActiveIdx(i)}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-[10px] no-underline text-sm transition-all duration-150"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-[10px] text-sm transition-all duration-150"
               style={{
                 color:
                   i === activeIdx
@@ -224,7 +226,7 @@ function CommandPaletteInner({
                   {item.keys}
                 </span>
               )}
-            </a>
+            </div>
           ))}
         </div>
 
