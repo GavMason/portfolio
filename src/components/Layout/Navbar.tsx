@@ -35,7 +35,7 @@ export function Navbar({ active }: NavbarProps) {
         onClick={(e) => {
           e.preventDefault()
           window.scrollTo({ top: 0, behavior: 'smooth' })
-          history.replaceState(null, '', ' ')
+          history.replaceState(null, '', '/')
         }}
         onMouseEnter={() => setLogoHovered(true)}
         onMouseLeave={() => setLogoHovered(false)}
