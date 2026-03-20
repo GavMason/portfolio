@@ -124,7 +124,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
       const prefersStatic = window.matchMedia(
         '(prefers-reduced-motion: reduce)',
       ).matches
-      let raf: number
+      let raf: number = 0
       const smoothMouse = { x: 0, y: 0 }
 
       if (prefersStatic) {
