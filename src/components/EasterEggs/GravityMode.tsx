@@ -125,12 +125,6 @@ export function GravityMode({ show, onClose }: GravityModeProps) {
 
     elementsRef.current = falling
 
-    // Hide the main content behind the falling clones
-    const mainContent = document.querySelector('.min-h-screen') as HTMLElement
-    if (mainContent) {
-      mainContent.dataset.gravityPrevBg = mainContent.style.background || ''
-    }
-
     // Physics loop - gravity, bounce, and wall collision
     const gravity = 0.4
     const bounce = 0.4
