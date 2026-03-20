@@ -14,6 +14,8 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
     const el = mountRef.current
     if (!el) return
 
+    let cleanup: (() => void) | undefined
+
     // Delay init slightly so the container has measured dimensions
     const initTimeout = setTimeout(() => {
       const w = el.clientWidth || 500
@@ -155,7 +157,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
       }
       window.addEventListener('resize', onResize)
 
-      return () => {
+      cleanup = () => {
         cancelAnimationFrame(raf)
         window.removeEventListener('mousemove', onMove)
         window.removeEventListener('resize', onResize)
@@ -167,6 +169,7 @@ export function DotGlobe({ visible, instant }: DotGlobeProps) {
 
     return () => {
       clearTimeout(initTimeout)
+      cleanup?.()
     }
   }, [])
 
