@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { GITHUB_URL, LINKEDIN_URL, EMAIL, RESUME_PATH } from '../../data/constants'
 
 interface CommandPaletteProps {
   open: boolean
@@ -23,22 +24,22 @@ const BASE_ITEMS: CommandItem[] = [
   { label: 'Go to Contact', action: '#contact', icon: '→', keys: '05' },
   {
     label: 'GitHub',
-    action: import.meta.env.VITE_GITHUB_URL || '#',
+    action: GITHUB_URL,
     icon: '⌨',
   },
   {
     label: 'LinkedIn',
-    action: import.meta.env.VITE_LINKEDIN_URL || '#',
+    action: LINKEDIN_URL,
     icon: '💼',
   },
   {
     label: 'Email',
-    action: `mailto:${import.meta.env.VITE_EMAIL || 'your@email.com'}`,
+    action: `mailto:${EMAIL}`,
     icon: '✉',
   },
   {
     label: 'Download Resume',
-    action: import.meta.env.VITE_RESUME_PATH || '#',
+    action: RESUME_PATH,
     icon: '📄',
   },
 ]

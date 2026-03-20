@@ -1,3 +1,5 @@
+import { MAIKONA_URL, HOMELAB_URL, MCP_URL } from './constants'
+
 export interface Project {
   title: string
   description: string
@@ -19,7 +21,7 @@ export const PROJECTS: Project[] = [
     accent: '139,92,246',
     preview: 'linear-gradient(135deg, #1a1040, #2d1b69, #1a1040)',
     mockup: 'platform',
-    link: import.meta.env.VITE_MAIKONA_URL || '#',
+    link: MAIKONA_URL,
   },
   {
     title: 'Homelab Observation Stack',
@@ -30,7 +32,7 @@ export const PROJECTS: Project[] = [
     accent: '59,130,246',
     preview: 'linear-gradient(135deg, #0a1628, #1a2d5a, #0a1628)',
     mockup: 'dashboard',
-    link: import.meta.env.VITE_HOMELAB_URL || '#',
+    link: HOMELAB_URL,
   },
   {
     title: 'ani-mcp',
@@ -41,6 +43,6 @@ export const PROJECTS: Project[] = [
     accent: '236,72,153',
     preview: 'linear-gradient(135deg, #1a0a1e, #3d1545, #1a0a1e)',
     mockup: 'terminal',
-    link: import.meta.env.VITE_MCP_URL || '#',
+    link: MCP_URL,
   },
 ]

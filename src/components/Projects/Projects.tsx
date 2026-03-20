@@ -1,4 +1,5 @@
 import { PROJECTS } from '../../data/projects'
+import { ALL_PROJECTS_URL } from '../../data/constants'
 import { Reveal } from '../UI/Reveal'
 import { SectionHeader } from '../UI/SectionHeader'
 import { FeaturedProject } from './FeaturedProject'
@@ -33,7 +34,7 @@ export function Projects() {
         <Reveal delay={400}>
           <div className="text-center mt-10">
             <a
-              href={import.meta.env.VITE_ALL_PROJECTS_URL || '#'}
+              href={ALL_PROJECTS_URL}
               className="no-underline text-[13px] font-medium pb-1 text-accent-light-faint border-b border-transparent hover:border-accent-light-faint transition-all duration-300"
             >
               View all projects →
