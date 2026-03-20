@@ -20,8 +20,8 @@ export function Contact() {
             Let's talk.
           </h2>
           <p className="text-[17px] leading-relaxed mb-4 text-text-muted">
-            I'm always happy to chat - whether it's about a role, a
-            collaboration, or something interesting being built.
+            Open to work, side project collabs, or just nerding out about
+            something you're building.
           </p>
           <p className="text-sm mb-10 text-text-dim">
             Best way to reach me is email. I try to respond to everything.

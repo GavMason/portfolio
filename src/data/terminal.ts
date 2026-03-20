@@ -12,5 +12,5 @@ export const TERMINAL_LINES: TerminalLine[] = [
   { prompt: false, text: '-rw-r--r--  new-ml-tooling.md' },
   { prompt: false, text: '' },
   { prompt: true, text: 'cat status.txt' },
-  { prompt: false, text: 'Building, learning, shipping. Always.' },
+  { prompt: false, text: 'Debugging more than I\'d like to admit.' },
 ]

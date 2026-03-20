@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
   {
     title: 'ani-mcp',
     description:
-      'A Model Context Protocol server that extends what AI assistants can do.',
+      'MCP server for pulling anime/manga data into AI assistants. Built with TypeScript.',
     tags: ['MCP', 'AI', 'TypeScript'],
     status: 'active',
     accent: '236,72,153',

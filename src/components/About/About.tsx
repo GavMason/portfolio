@@ -52,17 +52,15 @@ export function About() {
                   }}
                 />
                 <p className="text-base leading-relaxed text-text-subtle">
-                  I studied Computer Science at UCF and graduated in 2024. Since
-                  then I've been working as a software engineer doing applied
-                  cybersecurity and ML - building production systems, deploying
-                  secure solutions, and figuring out how to explain what I built
-                  to people who don't write code.
+                  CS grad from UCF, class of '24. Right now I'm working across
+                  cybersecurity and ML, but I go wherever the interesting
+                  problems are.
                 </p>
                 <p className="text-base leading-relaxed mt-5 text-text-subtle">
-                  What I enjoy most is taking something from an idea to a
-                  working thing. Could be a web app, an ML pipeline, a
-                  monitoring stack - the fun part is making it real and watching
-                  it work.
+                  Most of my side projects start the same way: I need something,
+                  it doesn't exist, so I build it. Could be a web app, an ML
+                  pipeline, a monitoring stack - the fun part is making it real
+                  and watching it work.
                 </p>
               </div>
             </Reveal>
