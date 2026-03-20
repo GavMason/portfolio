@@ -16,7 +16,7 @@ export function Terminal() {
     started.current = true
 
     let idx = 0
-    let replayTimer: ReturnType<typeof setTimeout>
+    let replayTimer: ReturnType<typeof setTimeout> | undefined
 
     const interval = setInterval(() => {
       if (idx >= TERMINAL_LINES.length) {
