@@ -100,6 +100,12 @@ function CommandPaletteInner({
     (item: CommandItem) => {
       if (item.callback) {
         item.callback()
+      } else if (
+        item.action.startsWith('http') ||
+        item.action.startsWith('mailto:')
+      ) {
+        window.open(item.action, '_blank', 'noopener,noreferrer')
+        onClose()
       } else {
         window.location.hash = item.action
         onClose()
