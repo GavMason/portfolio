@@ -69,6 +69,30 @@ function App() {
     return () => window.removeEventListener('keydown', handler)
   }, [])
 
+  // DVD screensaver on inactivity (3 minutes)
+  useEffect(() => {
+    const IDLE_MS = 3 * 60 * 1000
+    let timer = setTimeout(() => setDvdMode(true), IDLE_MS)
+
+    const reset = () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => setDvdMode(true), IDLE_MS)
+    }
+
+    window.addEventListener('mousemove', reset)
+    window.addEventListener('keydown', reset)
+    window.addEventListener('scroll', reset)
+    window.addEventListener('touchstart', reset)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('mousemove', reset)
+      window.removeEventListener('keydown', reset)
+      window.removeEventListener('scroll', reset)
+      window.removeEventListener('touchstart', reset)
+    }
+  }, [])
+
   return (
     <main className="min-h-screen bg-bg text-text-secondary font-sans relative overflow-x-hidden">
       <GlowCursor />
