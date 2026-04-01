@@ -9,7 +9,7 @@ export function Now() {
         <SectionHeader
           number="04"
           title="Right Now"
-          subtitle="What's on my desk this week."
+          subtitle="What I've been pushing."
           sectionId="now"
         />
         <Reveal delay={100}>

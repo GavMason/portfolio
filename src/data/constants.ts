@@ -13,6 +13,7 @@ export const MAIKONA_URL = 'https://maikona.com'
 export const HOMELAB_URL = 'https://github.com/gavxm/observability-homelab'
 export const MCP_URL = 'https://github.com/gavxm/ani-mcp'
 export const ALL_PROJECTS_URL = 'https://github.com/gavxm?tab=repositories'
+export const GITHUB_USERNAME = 'gavxm'
 
 // ──────────────────────────────────────
 // Content

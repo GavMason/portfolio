@@ -1,27 +1,38 @@
 import { useState, useEffect, useRef } from 'react'
 import { useInView } from 'framer-motion'
 import { TERMINAL_LINES } from '../../data/terminal'
+import { fetchGitHubLines } from '../../data/github'
 import type { TerminalLine } from '../../data/terminal'
 
 export function Terminal() {
   const [lines, setLines] = useState<TerminalLine[]>([])
+  const [source, setSource] = useState<TerminalLine[] | null>(null)
   const ref = useRef(null)
   const visible = useInView(ref, { once: true, amount: 0.3 })
   const started = useRef(false)
   const [cycle, setCycle] = useState(0)
 
+  // Fetch GitHub activity once on mount, fall back to static lines
   useEffect(() => {
-    // Guard so scrolling back into view doesn't restart mid-animation
-    if (!visible || started.current) return
+    let cancelled = false
+    fetchGitHubLines().then((result) => {
+      if (!cancelled) setSource(result ?? TERMINAL_LINES)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!visible || started.current || !source) return
     started.current = true
 
     let idx = 0
     let replayTimer: ReturnType<typeof setTimeout> | undefined
 
     const interval = setInterval(() => {
-      if (idx >= TERMINAL_LINES.length) {
+      if (idx >= source.length) {
         clearInterval(interval)
-        // Replay after 60s
         replayTimer = setTimeout(() => {
           setLines([])
           started.current = false
@@ -29,7 +40,7 @@ export function Terminal() {
         }, 60_000)
         return
       }
-      const line = TERMINAL_LINES[idx]
+      const line = source[idx]
       idx++
       setLines((prev) => [...prev, line])
     }, 400)
@@ -38,7 +49,7 @@ export function Terminal() {
       clearInterval(interval)
       clearTimeout(replayTimer)
     }
-  }, [visible, cycle])
+  }, [visible, cycle, source])
 
   return (
     <div
@@ -75,7 +86,7 @@ export function Terminal() {
                 : 'var(--color-text-mid)',
               opacity: 0,
               animation: 'term-fade 0.3s ease forwards',
-              animationDelay: `${i * 50}ms`, // Stagger each line's fade-in slightly
+              animationDelay: `${i * 50}ms`,
             }}
           >
             {l.prompt && (
