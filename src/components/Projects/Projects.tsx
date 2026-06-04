@@ -17,14 +17,14 @@ export function Projects() {
         />
 
         {/* Featured project */}
-        <Reveal delay={100}>
+        <Reveal delay={100} from="left">
           <FeaturedProject project={PROJECTS[0]} />
         </Reveal>
 
         {/* Remaining projects in a grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {PROJECTS.slice(1).map((p, i) => (
-            <Reveal key={i} delay={200 + i * 100}>
+            <Reveal key={i} delay={200 + i * 100} from={i % 2 === 0 ? 'left' : 'right'}>
               <ProjectCard project={p} />
             </Reveal>
           ))}

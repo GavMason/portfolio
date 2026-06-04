@@ -11,7 +11,7 @@ export function About() {
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-[auto_1fr]">
           {/* Avatar placeholder */}
-          <Reveal delay={50}>
+          <Reveal delay={50} from="left">
             <div
               className="w-36 h-36 md:w-50 md:h-50 mx-auto md:mx-0 rounded-3xl flex items-center justify-center overflow-hidden relative border border-border-light"
               style={{
@@ -42,7 +42,7 @@ export function About() {
 
           {/* Bio + info cards */}
           <div className="grid grid-rows-[1fr_auto] gap-5">
-            <Reveal delay={100}>
+            <Reveal delay={100} from="right">
               <div className="rounded-[20px] p-9 relative overflow-hidden bg-surface border border-border">
                 <div
                   className="absolute top-0 left-9 right-9 h-px"

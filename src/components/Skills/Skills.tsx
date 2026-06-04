@@ -12,7 +12,7 @@ export function Skills() {
           subtitle="Hover to explore, click categories to filter. Bigger nodes = tools I reach for most."
           sectionId="skills"
         />
-        <Reveal delay={100}>
+        <Reveal delay={100} from="scale">
           <div className="rounded-3xl px-8 pt-10 pb-6 bg-[rgba(255,255,255,0.015)] border border-border">
             <ConstellationGraph />
           </div>

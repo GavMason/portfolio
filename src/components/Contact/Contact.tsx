@@ -1,4 +1,5 @@
 import { Reveal } from '../UI/Reveal'
+import { Parallax } from '../UI/Parallax'
 import { ContactCard } from './ContactCard'
 import { TopoLines } from '../Effects/TopoLines'
 import { CONTACT_LINKS } from '../../data/contact'
@@ -9,7 +10,9 @@ export function Contact() {
       id="contact"
       className="relative z-3 overflow-hidden pt-35 pb-25 px-5 md:px-10"
     >
-      <TopoLines style={{ opacity: 0.4 }} />
+      <Parallax offset={20}>
+        <TopoLines style={{ opacity: 0.4 }} />
+      </Parallax>
 
       <div className="max-w-150 mx-auto relative z-1">
         <Reveal>
