@@ -54,7 +54,7 @@ export function Terminal() {
   return (
     <div
       ref={ref}
-      className="rounded-2xl overflow-hidden font-mono relative bg-bg-dark border border-border-light"
+      className="rounded-2xl overflow-hidden font-mono relative bg-bg-dark border border-border-light flex-1"
     >
       {/* Scanline overlay */}
       <div

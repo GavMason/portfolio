@@ -1,23 +1,23 @@
 # gav.
 
-My personal portfolio — [gavmason.me](https://gavmason.me)
+My personal portfolio - [gavmason.me](https://gavmason.me)
 
 ## Tech Stack
 
 - **React 19** + **TypeScript 5.9**
-- **Vite 7** — build tooling with code splitting
-- **Tailwind CSS 4** — utility-first styling
-- **Framer Motion** — scroll and layout animations
-- **Three.js** — interactive dot globe in the hero
+- **Vite 7** - build tooling with code splitting
+- **Tailwind CSS 4** - utility-first styling
+- **Framer Motion** - scroll and layout animations
+- **Three.js** - interactive dot globe in the hero
 
 ## Features
 
 - Command palette (`⌘K`) with navigation, social links, and easter eggs
 - Interactive skills constellation graph with hover/tap support
 - Animated terminal section
-- Fully responsive — mobile-first breakpoints
-- Accessible — semantic HTML, ARIA labels, keyboard navigation, reduced motion support
-- SEO — meta tags, Open Graph, JSON-LD structured data, sitemap
+- Fully responsive - mobile-first breakpoints
+- Accessible - semantic HTML, ARIA labels, keyboard navigation, reduced motion support
+- SEO - meta tags, Open Graph, JSON-LD structured data, sitemap
 
 ## Getting Started
 

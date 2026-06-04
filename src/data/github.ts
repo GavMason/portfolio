@@ -107,7 +107,7 @@ function formatGroupedPush(group: GroupedPush): string {
     return group.lastMessage ? `${base}: "${group.lastMessage}"` : base
   }
   const base = `${ago}  ${group.count} pushes to ${group.repo}`
-  return group.lastMessage ? `${base} — latest: "${group.lastMessage}"` : base
+  return group.lastMessage ? `${base} - latest: "${group.lastMessage}"` : base
 }
 
 export async function fetchGitHubLines(): Promise<TerminalLine[] | null> {

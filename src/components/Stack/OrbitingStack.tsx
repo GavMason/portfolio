@@ -196,9 +196,15 @@ export function OrbitingStack() {
               onClick={() => handleCategory(cat.key)}
               className="px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border"
               style={{
-                background: isActive ? `rgba(${cat.color}, 0.15)` : 'transparent',
-                borderColor: isActive ? `rgba(${cat.color}, 0.4)` : 'var(--color-border)',
-                color: isActive ? `rgba(${cat.color}, 1)` : 'var(--color-text-muted)',
+                background: isActive
+                  ? `rgba(${cat.color}, 0.15)`
+                  : 'transparent',
+                borderColor: isActive
+                  ? `rgba(${cat.color}, 0.4)`
+                  : 'var(--color-border)',
+                color: isActive
+                  ? `rgba(${cat.color}, 1)`
+                  : 'var(--color-text-muted)',
               }}
             >
               {cat.label}
@@ -212,9 +218,13 @@ export function OrbitingStack() {
         ref={containerRef}
         className="relative w-full aspect-square max-w-110 mx-auto overflow-hidden"
       >
-        {/* Center element — favicon */}
+        {/* Center element - favicon */}
         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <img src="/favicon.svg" alt="" className="w-14 h-14 md:w-16 md:h-16 rounded-xl" />
+          <img
+            src="/favicon.svg"
+            alt=""
+            className="w-14 h-14 md:w-16 md:h-16 rounded-xl"
+          />
         </div>
 
         {/* Orbit tracks */}
