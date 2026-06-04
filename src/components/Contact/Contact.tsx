@@ -1,7 +1,8 @@
-import { Reveal } from '../UI/Reveal'
 import { Parallax } from '../UI/Parallax'
+import { Reveal } from '../UI/Reveal'
 import { ContactCard } from './ContactCard'
 import { TopoLines } from '../Effects/TopoLines'
+import { SectionHeader } from '../UI/SectionHeader'
 import { CONTACT_LINKS } from '../../data/contact'
 
 export function Contact() {
@@ -15,18 +16,14 @@ export function Contact() {
       </Parallax>
 
       <div className="max-w-150 mx-auto relative z-1">
-        <Reveal>
-          <span className="text-sm font-medium tracking-[2px] font-mono text-accent-muted">
-            05
-          </span>
-          <h2 className="text-3xl sm:text-[40px] font-black tracking-tight mt-2 mb-5">
-            Let's talk.
-          </h2>
-          <p className="text-[17px] leading-relaxed mb-4 text-text-muted">
-            Open to work, side project collabs, or just nerding out about
-            something you're building.
-          </p>
-          <p className="text-sm mb-10 text-text-dim">
+        <SectionHeader
+          number="05"
+          title="Let's talk."
+          subtitle="Open to work, side project collabs, or just nerding out about something you're building."
+          sectionId="contact"
+        />
+        <Reveal delay={100}>
+          <p className="text-sm mb-10 -mt-8 ml-9.5 text-text-dim">
             Best way to reach me is email. I try to respond to everything.
           </p>
         </Reveal>
