@@ -9,7 +9,6 @@ import { Stack } from './components/Stack/Stack'
 import { Now } from './components/Terminal/Now'
 import { Contact } from './components/Contact/Contact'
 import { CommandPalette } from './components/CommandPalette/CommandPalette'
-import { GlowCursor } from './components/Effects/GlowCursor'
 import { GradientMesh } from './components/Effects/GradientMesh'
 import { NoiseOverlay } from './components/Effects/NoiseOverlay'
 import { ScrollProgress } from './components/UI/ScrollProgress'
@@ -76,7 +75,6 @@ function App() {
 
   return (
     <main className="min-h-screen bg-bg text-text-secondary font-sans relative overflow-x-hidden">
-      <GlowCursor />
       <DVDScreensaver show={dvdMode} onClose={() => setDvdMode(false)} />
       <GravityMode show={gravityMode} onClose={() => setGravityMode(false)} />
       {!is404 && <PageLoader onDone={handleLoaded} />}

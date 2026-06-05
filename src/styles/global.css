@@ -90,16 +90,6 @@ body {
   overflow-x: hidden;
 }
 
-@media (hover: hover) {
-  * {
-    cursor: none;
-  }
-  a,
-  button {
-    cursor: none;
-  }
-}
-
 /* Shared keyframes */
 @keyframes pulse {
   0%,
