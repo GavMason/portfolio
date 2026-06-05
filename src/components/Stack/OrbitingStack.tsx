@@ -194,17 +194,21 @@ export function OrbitingStack() {
             <button
               key={cat.key}
               onClick={() => handleCategory(cat.key)}
-              className="px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border"
+              className={`px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border outline-none focus:outline-none ${
+                isActive ? '' : 'active:opacity-70'
+              }`}
+              onPointerUp={(e) => (e.currentTarget as HTMLButtonElement).blur()}
               style={{
                 background: isActive
                   ? `rgba(${cat.color}, 0.15)`
-                  : 'transparent',
+                  : 'var(--color-surface)',
                 borderColor: isActive
                   ? `rgba(${cat.color}, 0.4)`
                   : 'var(--color-border)',
                 color: isActive
                   ? `rgba(${cat.color}, 1)`
                   : 'var(--color-text-muted)',
+                WebkitTapHighlightColor: 'transparent',
               }}
             >
               {cat.label}
@@ -242,7 +246,7 @@ export function OrbitingStack() {
               return (
                 <div
                   key={`track-${i}`}
-                  className="absolute rounded-full border border-border"
+                  className="absolute rounded-full border border-border-strong"
                   style={{
                     width: `${d}%`,
                     height: `${d}%`,
